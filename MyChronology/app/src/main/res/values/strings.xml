@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyChronology</string>
+    <string name="main_nav_weekReport">WeekReport</string>
+    <string name="main_nav_home">Home</string>
+    <string name="main_nav_chronology">Chronology</string>
+
+</resources>

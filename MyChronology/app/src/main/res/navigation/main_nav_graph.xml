@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/chronologyFragment">
+
+    <fragment
+        android:id="@+id/chronologyFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.ChronologyFragment"
+        android:label="ChronologyFragment" >
+        <action
+            android:id="@+id/action_chronologyFragment_to_placeholder2"
+            app:destination="@id/placeholder2" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/weekReportFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.WeekReportFragment"
+        android:label="WeekReportFragment" >
+        <action
+            android:id="@+id/action_weekReportFragment_to_placeholder2"
+            app:destination="@id/placeholder2" />
+    </fragment>
+    <fragment android:id="@+id/placeholder2" />
+</navigation>
