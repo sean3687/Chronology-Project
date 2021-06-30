@@ -1,8 +1,16 @@
 package com.tassiecomp.mychronology.db
 
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import java.util.concurrent.locks.Lock
 
-abstract class HomeGradeDB {
+@Database(
+    entities = [HomeGradeDB::class]
+)
+
+abstract class HomeGradeDB: RoomDatabase() {
     abstract fun getGradeDao():GradeDao
 
     companion object{
@@ -10,8 +18,16 @@ abstract class HomeGradeDB {
         private var instance: HomeGradeDB?= null
         private val LOCK = Any()
 
-        open fun invoke(context:Context) = instance?: synchronized(LOCK){
-            instance?: createDatabase
+        operator fun invoke(context: Context) = instance?: synchronized(LOCK){
+            instance?: createDatabase(context).also{
+                instance = it
+            }
         }
+        private fun createDatabase(context:Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                HomeGradeDB::class.java,
+                "HomeGrade_db.db"
+            ).build()
     }
 }
