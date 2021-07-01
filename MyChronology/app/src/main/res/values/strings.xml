@@ -1,7 +1,15 @@
 <resources>
+<!--    navigation-->
     <string name="app_name">MyChronology</string>
     <string name="main_nav_weekReport">WeekReport</string>
     <string name="main_nav_home">Home</string>
     <string name="main_nav_chronology">Chronology</string>
+
+<!--    create subject dialog-->
+    <string name="Dialog_cardTitle">Card Title</string>
+    <string name="Dialog_min">Min Score</string>
+    <string name="Dialog_max">Max Score</string>
+    <string name="Dialog_description">Description(optional)</string>
+    <string name="Dialog_weighing">weighing</string>
 
 </resources>

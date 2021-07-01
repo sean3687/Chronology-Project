@@ -2,13 +2,13 @@ package com.tassiecomp.mychronology.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.slider.Slider
 import com.tassiecomp.mychronology.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.main_home_cardview.*
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +34,15 @@ class MainActivity : AppCompatActivity() {
 //        slider.addOnChangeListener { slider, value, fromUser ->
 //            // Responds to when slider's value is changed
 //        }
+
+        create_new_subject.setOnClickListener{
+            val mDialogView = LayoutInflater.from(this).inflate(R.layout.create_subject_dialog, null)
+            val mBuilder = AlertDialog.Builder(this)
+                .setView(mDialogView)
+            val mAlertDialog = mBuilder.show()
+
+
+        }
     }
 
 

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import java.util.concurrent.locks.Lock
 
 @Database(
-    entities = [HomeGradeDB::class]
+    entities = [HomeGradeDB::class], version = 1
 )
 
 abstract class HomeGradeDB: RoomDatabase() {
