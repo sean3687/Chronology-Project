@@ -12,4 +12,7 @@
     <string name="Dialog_description">Description(optional)</string>
     <string name="Dialog_weighing">weighing</string>
 
+<!--    constraint-->
+    <string name="wrapcontents">wrap_content</string>
+
 </resources>
