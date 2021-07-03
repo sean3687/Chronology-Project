@@ -4,20 +4,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tassiecomp.mychronology.R
+import com.tassiecomp.mychronology.db.HomeGradeDB
+import com.tassiecomp.mychronology.repository.MainRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.main_home_cardview.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
+//    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+//        val mainRepository = MainRepository(HomeGradeDB(this))
+//        val viewModelProviderFactory = MainViewModelProviderFactory(mainRepository)
+//        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MainViewModel::class.java)
+
 
         bottom_navigation.setupWithNavController(nav_host_fragment.findNavController())
 
@@ -35,14 +44,6 @@ class MainActivity : AppCompatActivity() {
 //            // Responds to when slider's value is changed
 //        }
 
-        create_new_subject.setOnClickListener{
-            val mDialogView = LayoutInflater.from(this).inflate(R.layout.create_subject_dialog, null)
-            val mBuilder = AlertDialog.Builder(this)
-                .setView(mDialogView)
-            val mAlertDialog = mBuilder.show()
-
-
-        }
     }
 
 

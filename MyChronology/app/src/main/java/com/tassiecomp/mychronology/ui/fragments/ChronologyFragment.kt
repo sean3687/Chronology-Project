@@ -9,12 +9,12 @@ import com.tassiecomp.mychronology.ui.MainActivity
 import com.tassiecomp.mychronology.ui.MainViewModel
 
 class ChronologyFragment: Fragment(R.layout.fragment_chronology) {
-    lateinit var viewModel:MainViewModel
+//    lateinit var viewModel:MainViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as MainActivity).viewModel
+//        viewModel = (activity as MainActivity).viewModel
     }
 
 }

@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/DialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create Subject"
@@ -20,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Dialog_cardTitle"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintEnd_toEndOf="@+id/DialogTitle"
+        app:layout_constraintStart_toStartOf="@+id/DialogTitle"
+        app:layout_constraintTop_toBottomOf="@+id/DialogTitle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -94,19 +95,25 @@
 
 
     <Button
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="save"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="584dp" />
+        app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Dialog_weighing" />
 
     <Button
+        android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cancel"
-        tools:layout_editor_absoluteX="251dp"
-        tools:layout_editor_absoluteY="596dp" />
-
+        app:layout_constraintBottom_toBottomOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/saveButton"
+        app:layout_constraintTop_toTopOf="@+id/saveButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
