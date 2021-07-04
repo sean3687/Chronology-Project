@@ -10,7 +10,10 @@
     <string name="Dialog_min">Min Score</string>
     <string name="Dialog_max">Max Score</string>
     <string name="Dialog_description">Description(optional)</string>
-    <string name="Dialog_weighing">weighing</string>
+    <string name="Dialog_weighing">Weighing(%)</string>
+    <string name="Dialog_save">Save</string>
+    <string name="Dialog_cancel">Cancel</string>
+    <string name="Dialog_title">Create Subject</string>
 
 <!--    constraint-->
     <string name="wrapcontents">wrap_content</string>
