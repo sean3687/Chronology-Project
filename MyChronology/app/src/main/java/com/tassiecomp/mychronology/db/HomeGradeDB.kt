@@ -23,7 +23,7 @@ abstract class HomeGradeDB: RoomDatabase() {
                 instance = it
             }
         }
-        private fun createDatabase(context:Context) =
+        fun createDatabase(context:Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 HomeGradeDB::class.java,

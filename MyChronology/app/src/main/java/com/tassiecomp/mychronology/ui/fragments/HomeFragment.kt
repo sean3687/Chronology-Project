@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.util.CreateSubjectDialogFragment
-import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 //    lateinit var viewModel: MainViewModel
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +26,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-
     }
+
 
     fun showDialog() {
         val fragmentManager = getActivity()?.supportFragmentManager
@@ -41,6 +39,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .addToBackStack(null)
             .commit()
     }
+
+
+
 
 }
 

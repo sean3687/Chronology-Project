@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 )
 data class HomeGrade(
     @PrimaryKey(autoGenerate = true)
-    var date:Int? = null,
+    var date:Int? = 0,
     var title: String,
     var secondaryTitle: String,
     var weigthing:String,

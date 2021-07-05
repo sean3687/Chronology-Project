@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
 //        val mainRepository = MainRepository(HomeGradeDB(this))
 //        val viewModelProviderFactory = MainViewModelProviderFactory(mainRepository)
 //        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MainViewModel::class.java)
