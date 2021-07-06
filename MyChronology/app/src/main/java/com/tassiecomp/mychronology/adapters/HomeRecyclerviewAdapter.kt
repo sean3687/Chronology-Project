@@ -17,7 +17,7 @@ class HomeRecyclerviewAdapter(): RecyclerView.Adapter<HomeRecyclerviewAdapter.Vi
 
     private val differCallback = object: DiffUtil.ItemCallback<HomeGrade>(){
         override fun areItemsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
-            return oldItem.date == newItem.date
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {

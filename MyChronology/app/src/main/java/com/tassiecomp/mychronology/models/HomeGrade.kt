@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey
     tableName ="grades"
 )
 data class HomeGrade(
-    @PrimaryKey(autoGenerate = true)
-    var date:Int? = 0,
     var title: String,
     var secondaryTitle: String,
     var weigthing:String,
-    var sliderValue: Double
+    var sliderValue: Double? = 0.0
 
 ) {
 
+    @PrimaryKey(autoGenerate = true)
+    var id: Int =0
 }

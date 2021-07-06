@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
+import com.tassiecomp.mychronology.models.HomeGrade
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 
@@ -32,7 +33,9 @@ class CreateSubjectDialogFragment() : DialogFragment() {
             when (it.itemId) {
                 R.id.save -> {
                     val db = HomeGradeDB.createDatabase(App.instance)
-                    db.getGradeDao().insert
+                    db.getGradeDao().insert(HomeGrade(
+                        Dialog_cardTitle.text.toString()
+                    ))
 
                     dismiss()
                     Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()

@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import java.util.concurrent.locks.Lock
+import com.tassiecomp.mychronology.models.HomeGrade
+
 
 @Database(
-    entities = [HomeGradeDB::class], version = 1
+    entities = [HomeGrade::class], version = 1
 )
 
 abstract class HomeGradeDB: RoomDatabase() {
