@@ -12,17 +12,21 @@ import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
+import com.tassiecomp.mychronology.ui.MainViewModel
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 
 
 class CreateSubjectDialogFragment() : DialogFragment() {
 
+    lateinit var myNumberViewModel: MainViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val mDialogView = inflater.inflate(R.layout.create_subject_dialog, container, false)
 
         mDialogView.topAppBar.setNavigationOnClickListener {
@@ -34,7 +38,12 @@ class CreateSubjectDialogFragment() : DialogFragment() {
                 R.id.save -> {
                     val db = HomeGradeDB.createDatabase(App.instance)
                     db.getGradeDao().insert(HomeGrade(
-                        Dialog_cardTitle.text.toString()
+                        Dialog_cardTitle.text.toString(),
+                        Dialog_description.text.toString(),
+                        Dialog_weighing.text.toString(),
+                        0.0,
+                        Dialog_min.text.toString().toDouble(),
+                        Dialog_max.text.toString().toDouble(),
                     ))
 
                     dismiss()

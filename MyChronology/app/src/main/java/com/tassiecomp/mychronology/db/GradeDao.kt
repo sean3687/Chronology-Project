@@ -11,6 +11,6 @@ interface GradeDao {
     fun getAll(): List<HomeGrade>
 
     @Insert
-    fun insert(): List<HomeGrade>
+    fun insert(homeGrade:HomeGrade)
 
 }

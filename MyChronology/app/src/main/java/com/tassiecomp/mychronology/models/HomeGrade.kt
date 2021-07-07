@@ -10,7 +10,9 @@ data class HomeGrade(
     var title: String,
     var secondaryTitle: String,
     var weigthing:String,
-    var sliderValue: Double? = 0.0
+    var sliderValue: Double? = 0.0,
+    var min:Double?,
+    var max:Double?
 
 ) {
 
