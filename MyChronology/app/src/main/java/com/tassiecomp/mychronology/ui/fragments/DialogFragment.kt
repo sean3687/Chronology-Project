@@ -8,17 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
+import com.tassiecomp.mychronology.repository.MainRepository
 import com.tassiecomp.mychronology.ui.MainViewModel
+import com.tassiecomp.mychronology.ui.MainViewModelProviderFactory
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 
 
 class CreateSubjectDialogFragment() : DialogFragment() {
-
+    lateinit var viewModel: MainViewModel
     lateinit var myNumberViewModel: MainViewModel
 
     override fun onCreateView(

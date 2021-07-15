@@ -6,9 +6,15 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
+import com.tassiecomp.mychronology.db.HomeGradeDB
+import com.tassiecomp.mychronology.repository.MainRepository
 import com.tassiecomp.mychronology.ui.MainActivity
 import com.tassiecomp.mychronology.ui.MainViewModel
+import com.tassiecomp.mychronology.ui.MainViewModelProviderFactory
 import com.tassiecomp.mychronology.util.CreateSubjectDialogFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -18,7 +24,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as MainActivity).viewModel
+
+
 
         create_new_subject.setOnClickListener() {
             showDialog()

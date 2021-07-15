@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tassiecomp.mychronology.App
+import com.tassiecomp.mychronology.App.Companion.viewModel
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.repository.MainRepository
@@ -16,21 +17,18 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-        val mainRepository = MainRepository(HomeGradeDB(this))
+        val mainRepository = MainRepository(HomeGradeDB(App.instance))
         val viewModelProviderFactory = MainViewModelProviderFactory(mainRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MainViewModel::class.java)
-        viewModel._recyclerViewModel.observe(this, Observer{
+        viewModel.recyclerViewModel.observe(this, Observer {
 
-        })
-
+        }
+        )
 
         bottom_navigation.setupWithNavController(nav_host_fragment.findNavController())
 
