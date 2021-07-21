@@ -17,7 +17,7 @@ class HomeRecyclerviewAdapter(): RecyclerView.Adapter<HomeRecyclerviewAdapter.Vi
 
     private val differCallback = object: DiffUtil.ItemCallback<HomeGrade>(){
         override fun areItemsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.title == newItem.title
         }
 
         override fun areContentsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
@@ -45,7 +45,7 @@ class HomeRecyclerviewAdapter(): RecyclerView.Adapter<HomeRecyclerviewAdapter.Vi
         viewHolder.itemView.apply{
             CardTitle.text = todayGrade.title
             Weighting.text = todayGrade.weigthing
-            CurrentScore.text = todayGrade.secondaryTitle
+            CurrentScore.text = todayGrade.description
         }
     }
 

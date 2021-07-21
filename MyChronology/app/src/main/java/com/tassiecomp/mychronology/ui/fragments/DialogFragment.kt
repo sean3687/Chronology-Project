@@ -45,9 +45,8 @@ class CreateSubjectDialogFragment() : DialogFragment() {
                         Dialog_cardTitle.text.toString(),
                         Dialog_description.text.toString(),
                         Dialog_weighing.text.toString(),
-                        0.0,
-                        Dialog_min.text.toString().toDouble(),
-                        Dialog_max.text.toString().toDouble(),
+                        Dialog_max.text.toString().toInt(),
+                        Dialog_min.text.toString().toInt()
                     ))
 
                     dismiss()
