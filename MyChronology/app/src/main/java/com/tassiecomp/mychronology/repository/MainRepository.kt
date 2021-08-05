@@ -1,11 +1,17 @@
 package com.tassiecomp.mychronology.repository
 
-import com.tassiecomp.mychronology.db.HomeGradeDB
+import androidx.lifecycle.LiveData
+import com.tassiecomp.mychronology.db.GradeDao
+import com.tassiecomp.mychronology.models.HomeGrade
+
 
 class MainRepository(
-    val db:HomeGradeDB
+    private val gradeDao: GradeDao
 ) {
-    suspend fun getHomeGrade(){
+    val readAllData: LiveData<List<HomeGrade>> = gradeDao.readAllData()
+
+    suspend fun addSubject(homeGrade: HomeGrade) {
+        gradeDao.addSubject(homeGrade)
 
     }
 }

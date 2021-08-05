@@ -17,11 +17,8 @@
         android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_createSubjectDialogFragment"
-            app:destination="@id/createSubjectDialogFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_createSubjectDialogFragment2"
-            app:destination="@id/createSubjectDialogFragment" />
+            android:id="@+id/action_homeFragment_to_createSubjectFragment"
+            app:destination="@id/createSubjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/weekReportFragment"
@@ -31,13 +28,13 @@
             android:id="@+id/action_weekReportFragment_to_placeholder"
             app:destination="@id/placeholder" />
     </fragment>
-    <dialog
-        android:id="@+id/createSubjectDialogFragment"
-        android:name="com.tassiecomp.mychronology.util.CreateSubjectDialogFragment"
-        android:label="CreateSubjectDialogFragment" >
-        <action
-            android:id="@+id/action_createSubjectDialogFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </dialog>
     <fragment android:id="@+id/placeholder" />
+    <fragment
+        android:id="@+id/createSubjectFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.CreateSubjectFragment"
+        android:label="CreateSubjectFragment" >
+        <action
+            android:id="@+id/action_createSubjectFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

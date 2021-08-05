@@ -16,19 +16,23 @@ abstract class HomeGradeDB: RoomDatabase() {
 
     companion object{
         @Volatile
-        private var instance: HomeGradeDB?= null
-        private val LOCK = Any()
+        private var INSTANCE: HomeGradeDB? = null
 
-        operator fun invoke(context: Context) = instance?: synchronized(LOCK){
-            instance?: createDatabase(context).also{
-                instance = it
+        fun getDatabase(context: Context): HomeGradeDB {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
             }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    HomeGradeDB::class.java,
+                    "HomeGrade_db.db"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
+
         }
-        fun createDatabase(context:Context) =
-            Room.databaseBuilder(
-                context.applicationContext,
-                HomeGradeDB::class.java,
-                "HomeGrade_db.db"
-            ).build()
     }
 }

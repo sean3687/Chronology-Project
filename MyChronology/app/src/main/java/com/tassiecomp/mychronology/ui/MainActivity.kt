@@ -11,9 +11,8 @@ import com.tassiecomp.mychronology.App.Companion.viewModel
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.repository.MainRepository
-import com.tassiecomp.mychronology.util.CreateSubjectDialogFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class MainActivity : AppCompatActivity() {
 

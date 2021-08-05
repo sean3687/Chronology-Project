@@ -7,10 +7,10 @@ import com.tassiecomp.mychronology.models.HomeGrade
 
 @Dao
 interface GradeDao {
-    @Query("SELECT * FROM grades")
-    fun getAll(): List<HomeGrade>
+    @Query("SELECT * FROM homeGrades")
+    fun readAllData(): LiveData<List<HomeGrade>>
 
-    @Insert
-    fun insert(homeGrade:HomeGrade)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addSubject(homeGrade:HomeGrade)
 
 }
