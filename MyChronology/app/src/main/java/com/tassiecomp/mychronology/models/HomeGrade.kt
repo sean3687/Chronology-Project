@@ -1,8 +1,11 @@
 package com.tassiecomp.mychronology.models
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(
     tableName ="homeGrades"
 )
@@ -14,6 +17,6 @@ data class HomeGrade(
     var min:Int,
     var max:Int
 
-) {
+):Parcelable {
 
 }

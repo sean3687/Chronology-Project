@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.tassiecomp.mychronology.App
@@ -21,13 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainRepository = MainRepository(HomeGradeDB(App.instance))
-        val viewModelProviderFactory = MainViewModelProviderFactory(mainRepository)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(MainViewModel::class.java)
-        viewModel.recyclerViewModel.observe(this, Observer {
-
-        }
-        )
 
         bottom_navigation.setupWithNavController(nav_host_fragment.findNavController())
 

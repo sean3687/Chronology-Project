@@ -38,17 +38,6 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
             when (it.itemId) {
                 R.id.save -> {
                     insertDataToDatabase()
-
-                    val db = HomeGradeDB.getDatabase(App.instance)
-                    with(db) {
-                        getGradeDao().addSubject(
-                            HomeGrade(
-
-                            )
-                        )
-                    }
-                    Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
-
                 }
             }
             true
@@ -68,17 +57,9 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
             val subject = HomeGrade(title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()))
             mainViewModel.addSubject(subject)
             Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
-
+            findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)
         } else{
-
-        }
-
-        with(db) {
-            getGradeDao().addSubject(
-                HomeGrade(
-
-                )
-            )
+            Toast.makeText(App.instance, "Please fill out all fields", Toast.LENGTH_SHORT).show()
         }
 
 

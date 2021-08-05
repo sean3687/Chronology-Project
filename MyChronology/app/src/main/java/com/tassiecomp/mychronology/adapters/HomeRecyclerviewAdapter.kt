@@ -51,7 +51,7 @@ class HomeRecyclerviewAdapter(): RecyclerView.Adapter<HomeRecyclerviewAdapter.Vi
 
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return differ.currentList.size
     }
 
 

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
 import com.tassiecomp.mychronology.ui.MainViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -35,7 +34,7 @@ class HomeFragment : Fragment() {
 
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
         MainViewModelHomeFragment.readAllData.observe(viewLifecycleOwner, Observer{ subject->
-            adapter.differ
+
 
         })
 
@@ -59,7 +58,7 @@ class HomeFragment : Fragment() {
 
 
 
-}
+
 
 
 

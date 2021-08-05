@@ -11,15 +11,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-abstract class MainViewModel(
+class MainViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    abstract val readAllData: LiveData<List<HomeGrade>>
-    abstract val repository: MainRepository
+    val readAllData: LiveData<List<HomeGrade>>
+    var repository: MainRepository
 
     init {
         val gradeDao = HomeGradeDB.getDatabase(application).getGradeDao()
+        repository = MainRepository(gradeDao)
+        readAllData = repository.readAllData
     }
 
     fun addSubject(homeGrade: HomeGrade){

@@ -28,7 +28,8 @@ abstract class HomeGradeDB: RoomDatabase() {
                     context.applicationContext,
                     HomeGradeDB::class.java,
                     "HomeGrade_db.db"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }
