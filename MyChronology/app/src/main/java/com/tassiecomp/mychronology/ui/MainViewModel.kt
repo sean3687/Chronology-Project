@@ -3,6 +3,7 @@ package com.tassiecomp.mychronology.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
@@ -16,7 +17,7 @@ class MainViewModel(
 ) : AndroidViewModel(application) {
 
     val readAllData: LiveData<List<HomeGrade>>
-    var repository: MainRepository
+    private var repository: MainRepository
 
     init {
         val gradeDao = HomeGradeDB.getDatabase(application).getGradeDao()

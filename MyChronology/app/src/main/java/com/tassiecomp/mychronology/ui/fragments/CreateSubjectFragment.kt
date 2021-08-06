@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
@@ -26,8 +27,12 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
+
         val view = inflater.inflate(R.layout.create_subject_dialog, container, false)
+
+        mainViewModel =ViewModelProvider(this).get(MainViewModel::class.java)
 
         view.topAppBar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)

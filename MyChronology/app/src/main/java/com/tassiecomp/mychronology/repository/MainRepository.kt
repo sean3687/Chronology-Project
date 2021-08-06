@@ -2,6 +2,7 @@ package com.tassiecomp.mychronology.repository
 
 import androidx.lifecycle.LiveData
 import com.tassiecomp.mychronology.db.GradeDao
+import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
 
 

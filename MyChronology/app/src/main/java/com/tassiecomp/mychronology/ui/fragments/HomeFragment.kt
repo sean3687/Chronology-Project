@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
+import com.tassiecomp.mychronology.db.HomeGradeDB
+import com.tassiecomp.mychronology.repository.MainRepository
 import com.tassiecomp.mychronology.ui.MainViewModel
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -34,9 +36,10 @@ class HomeFragment : Fragment() {
 
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
         MainViewModelHomeFragment.readAllData.observe(viewLifecycleOwner, Observer{ subject->
-
+            HomeRecyclerviewAdapter().differ.submitList()
 
         })
+
 
         view.create_new_subject.setOnClickListener {
             findNavController()
