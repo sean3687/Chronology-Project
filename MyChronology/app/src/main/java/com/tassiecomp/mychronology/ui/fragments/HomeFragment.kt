@@ -47,9 +47,24 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
 
         MainViewModelHomeFragment.readAllData.observe(viewLifecycleOwner, Observer {
+            //객체를 생성만하고 recyclerView.adapter 에 할당하는 코드가 없다는 뜻이에여. 옵저버 내부의 코드를 (recyclerView.adapter as HomeRecyclerviewAdapter).submitList(it) 으로 고치면 될 것 같네여
             (recyclerView.adapter as HomeRecyclerviewAdapter).submitList(it)
             Log.d("TAGG", "obsereved")
         })
+
+        //        slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener { //
+//            override fun onStartTrackingTouch(slider: Slider) {
+//                // Responds to when slider's touch event is being started
+//            }
+//
+//            override fun onStopTrackingTouch(slider: Slider) {
+//                // Responds to when slider's touch event is being stopped
+//            }
+//        })
+//
+//        slider.addOnChangeListener { slider, value, fromUser ->
+//            // Responds to when slider's value is changed
+//        }
     }
 
     private fun setupRecyclerView() {

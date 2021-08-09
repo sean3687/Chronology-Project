@@ -28,19 +28,7 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setupWithNavController(nav_host_fragment.findNavController())
 
 
-//        slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener { //
-//            override fun onStartTrackingTouch(slider: Slider) {
-//                // Responds to when slider's touch event is being started
-//            }
-//
-//            override fun onStopTrackingTouch(slider: Slider) {
-//                // Responds to when slider's touch event is being stopped
-//            }
-//        })
-//
-//        slider.addOnChangeListener { slider, value, fromUser ->
-//            // Responds to when slider's value is changed
-//        }
+
 
     }
 
