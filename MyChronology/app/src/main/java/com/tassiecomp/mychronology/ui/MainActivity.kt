@@ -17,11 +17,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var MainViewModelHomeFragment:MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
 
         bottom_navigation.setupWithNavController(nav_host_fragment.findNavController())
 
