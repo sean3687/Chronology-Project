@@ -43,7 +43,7 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
             CardTitle.text = todayGrade.title
             Weighting.text = todayGrade.weigthing
             CurrentScore.text = todayGrade.description
-            slider.value= 0F
+
         }
     }
 
