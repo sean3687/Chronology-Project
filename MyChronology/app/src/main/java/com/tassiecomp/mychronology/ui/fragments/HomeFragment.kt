@@ -14,6 +14,7 @@ import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
 import com.tassiecomp.mychronology.ui.MainActivity
 import com.tassiecomp.mychronology.ui.MainViewModel
+import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -30,12 +31,18 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        view.create_new_subject.setOnClickListener {
-            findNavController()
-                .navigate(R.id.action_homeFragment_to_createSubjectFragment)
+        view.home_toolbar.setOnMenuItemClickListener{
+            when(it.itemId) {
+                R.id.Add_subject -> {
+                    findNavController()
+                        .navigate(R.id.action_homeFragment_to_createSubjectFragment)
 
-            Log.d("TAGG", "Create subject clicked")
+                    Log.d("TAGG", "Create subject clicked")
+                }
+            }
+            true
         }
+
 
         return view
     }
@@ -53,19 +60,6 @@ class HomeFragment : Fragment() {
             Log.d("TAGG", "obsereved")
         })
 
-        //        slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener { //
-//            override fun onStartTrackingTouch(slider: Slider) {
-//                // Responds to when slider's touch event is being started
-//            }
-//
-//            override fun onStopTrackingTouch(slider: Slider) {
-//                // Responds to when slider's touch event is being stopped
-//            }
-//        })
-//
-//        slider.addOnChangeListener { slider, value, fromUser ->
-//            // Responds to when slider's value is changed
-//        }
     }
 
     private fun setupRecyclerView() {

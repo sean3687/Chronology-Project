@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,13 +17,13 @@ import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
 import com.tassiecomp.mychronology.ui.MainViewModel
+import dev.sasikanth.colorsheet.ColorSheet
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 
 class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     private lateinit var mainViewModel: MainViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +48,14 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
             }
             true
         }
+
+        setupColorSheet()
+
         return view
+    }
+
+    private fun setupColorSheet() {
+
     }
 
     private fun insertDataToDatabase() {
@@ -75,5 +83,6 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
     private fun inputCheck(title:String, description:String, weighing:String, max: Editable, min:Editable):Boolean{
         return !(TextUtils.isEmpty(title)&&TextUtils.isEmpty(description)&& weighing.isEmpty() && max.isEmpty() && min.isEmpty())
     }
+
 
 }

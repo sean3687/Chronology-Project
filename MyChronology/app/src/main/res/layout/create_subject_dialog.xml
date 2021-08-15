@@ -8,6 +8,15 @@
     android:theme="@style/AppTheme"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <include
+
+        android:id="@+id/include"
+        layout="@layout/color_palette"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -27,29 +36,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/setTextColorName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Set Subject Color :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/colorPicker"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/home_icon_shape"
-        android:backgroundTint="@color/colorPickerColor"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="C"
-        android:textColor="@color/white"
-
-        app:layout_constraintBottom_toBottomOf="@+id/setTextColorName"
-        app:layout_constraintStart_toEndOf="@+id/setTextColorName"
-        app:layout_constraintTop_toTopOf="@+id/setTextColorName" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -63,7 +49,7 @@
         app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
         app:layout_constraintStart_toStartOf="@+id/appBarLayout"
-        app:layout_constraintTop_toBottomOf="@+id/colorPicker">
+        app:layout_constraintTop_toBottomOf="@+id/include">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Dialog_cardTitle"
@@ -117,6 +103,7 @@
             app:counterMaxLength="5"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
+            android:layout_marginRight="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
@@ -134,6 +121,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:hint="@string/Dialog_max"
