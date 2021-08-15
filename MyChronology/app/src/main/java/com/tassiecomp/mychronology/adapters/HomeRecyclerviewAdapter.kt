@@ -42,7 +42,7 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
         viewHolder.itemView.apply{
             CardTitle.text = todayGrade.title
             Weighting.text = todayGrade.weigthing
-            CurrentScore.text = todayGrade.description
+            Description.text = todayGrade.description
 
         }
     }

@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
     private lateinit var MainViewModelHomeFragment: MainViewModel
     lateinit var homeRecyclerviewAdapter: HomeRecyclerviewAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

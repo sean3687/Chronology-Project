@@ -15,7 +15,12 @@
     <string name="Dialog_cancel">Cancel</string>
     <string name="Dialog_title">Create Subject</string>
 
+
 <!--    constraint-->
     <string name="wrapcontents">wrap_content</string>
+
+<!--    home fragment-->
+    <string name="HomeTitle">Daily Check</string>
+
 
 </resources>

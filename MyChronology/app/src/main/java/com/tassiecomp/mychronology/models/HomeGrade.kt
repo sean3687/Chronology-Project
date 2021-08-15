@@ -15,7 +15,7 @@ data class HomeGrade(
     var description: String,
     var weigthing:String,
     var min:Int,
-    var max:Int
+    var max:Int,
 
 ):Parcelable {
 
