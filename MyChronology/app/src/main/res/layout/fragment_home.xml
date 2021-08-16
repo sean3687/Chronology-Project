@@ -25,18 +25,26 @@
             app:titleTextColor="@color/headline"/>
     </com.google.android.material.appbar.AppBarLayout>
 
+
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/homeAppbar">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="22dp"
-            tools:layout_editor_absoluteY="180dp" />
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
     </ScrollView>

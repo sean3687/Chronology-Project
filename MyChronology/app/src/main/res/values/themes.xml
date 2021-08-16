@@ -13,6 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+<!--    mainActivity-->
+    <style name="Theme.MainActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/Clicked</item>
+        <item name="colorPrimaryVariant">@color/unClicked</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
 
 <!--    appbar theme-->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">

@@ -1,5 +1,6 @@
 package com.tassiecomp.mychronology.ui.fragments
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -14,16 +15,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.HomeGrade
 import com.tassiecomp.mychronology.ui.MainViewModel
 import dev.sasikanth.colorsheet.ColorSheet
+import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 
 class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     private lateinit var mainViewModel: MainViewModel
+
+
+    private var selectedColor: Int = ColorSheet.NO_COLOR
+    companion object {
+        private const val COLOR_SELECTED = "selectedColor"
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,12 +57,27 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
             true
         }
 
-        setupColorSheet()
+        //colorSheet
+        view.colorPicker_button.setOnClickListener{
+            setupColorSheet()
+        }
+
 
         return view
     }
 
-    private fun setupColorSheet() {
+    private fun setupColorSheet()  {
+        val colors = resources.getIntArray(R.array.colors)
+        ColorSheet().cornerRadius(8)
+            .colorPicker(
+
+                colors = colors,
+                selectedColor = selectedColor,
+                listener = { color ->
+                    selectedColor = color
+                    setColor(selectedColor)
+                })
+            .show(childFragmentManager)
 
     }
 
@@ -65,9 +88,16 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
         val weighing = Dialog_weighing.text.toString()
         val max = Dialog_max.text
         val min = Dialog_min.text
+        var color = colorPicker_button.text.toString()
+        Log.d("TAGGG",color)
 
         if(inputCheck(title,description,weighing,max!!,min!!)){
-            val subject = HomeGrade(title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()))
+            if(color =="Pick Color"){
+                color = "#c2c2c2"
+                Log.d("TAGGG",color)
+            }
+
+            val subject = HomeGrade(title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color)
             mainViewModel.addSubject(subject)
             Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)
@@ -80,8 +110,19 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     }
 
-    private fun inputCheck(title:String, description:String, weighing:String, max: Editable, min:Editable):Boolean{
-        return !(TextUtils.isEmpty(title)&&TextUtils.isEmpty(description)&& weighing.isEmpty() && max.isEmpty() && min.isEmpty())
+    private fun inputCheck(
+        title: String,
+        description: String,
+        weighing: String,
+        max: Editable,
+        min: Editable,
+    ):Boolean{
+        return !(TextUtils.isEmpty(title)&&TextUtils.isEmpty(description)&& weighing.isEmpty() && max.isEmpty() && min.isEmpty() )
+    }
+
+    private fun setColor(@ColorInt color: Int) {
+            displayColor.backgroundTintList = ColorStateList.valueOf(color)
+            colorPicker_button.text = ColorSheetUtils.colorToHex(color)
     }
 
 

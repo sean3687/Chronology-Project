@@ -1,5 +1,8 @@
 package com.tassiecomp.mychronology.adapters
 
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +46,10 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
             CardTitle.text = todayGrade.title
             Weighting.text = todayGrade.weigthing
             Description.text = todayGrade.description
-
+            subject_iconLetter.text = todayGrade.title[0].toString()
+            subject_iconBackground.backgroundTintList = ColorStateList.valueOf(Color.parseColor(
+                todayGrade.color
+            ))
         }
     }
 

@@ -1,11 +1,11 @@
 <resources>
-<!--    navigation-->
+    <!--    navigation-->
     <string name="app_name">MyChronology</string>
     <string name="main_nav_weekReport">WeekReport</string>
     <string name="main_nav_home">Home</string>
     <string name="main_nav_chronology">Chronology</string>
 
-<!--    create subject dialog-->
+    <!--    create subject dialog-->
     <string name="Dialog_cardTitle">Card Title</string>
     <string name="Dialog_min">Min Score</string>
     <string name="Dialog_max">Max Score</string>
@@ -16,11 +16,13 @@
     <string name="Dialog_title">Create Subject</string>
 
 
-<!--    constraint-->
+    <!--    constraint-->
     <string name="wrapcontents">wrap_content</string>
 
-<!--    home fragment-->
+    <!--    home fragment-->
     <string name="HomeTitle">Daily Check</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

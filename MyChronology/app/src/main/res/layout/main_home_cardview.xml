@@ -20,8 +20,8 @@
 
     <TextView
         android:id="@+id/subject_iconLetter"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="49dp"
+        android:layout_height="46dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="K"
         android:textColor="@color/white"
@@ -71,6 +71,13 @@
             app:layout_constraintStart_toStartOf="@+id/CardTitle"
             app:layout_constraintTop_toBottomOf="@+id/CardTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:backgroundTint="#26000000"
+        android:background="@drawable/home_icon_shape"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,11 @@
     <color name="light">#ffffff</color>
     <color name="Dark">#c2c2c2</color>
 
+<!--    Home_bottom_navigation theme-->
+    <color name="unClicked">#6d6d6d</color>
+    <color name="Clicked">#1b1b1b</color>
+
+
 <!--    font-->
     <color name="headline">#D9000000</color>
     <color name="description">#99000000</color>
@@ -28,5 +33,7 @@
     <color name= "orange">#f57c00</color>
     <color name= "brown">#5d4037</color>
     <color name= "blueGrey">#455a64</color>
+
+
 
 </resources>
