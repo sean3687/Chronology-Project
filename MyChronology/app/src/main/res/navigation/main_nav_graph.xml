@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createSubjectFragment"
             app:destination="@id/createSubjectFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/weekReportFragment"
@@ -38,6 +41,17 @@
             app:destination="@id/homeFragment" />
         <argument
             android:name="homeGrade"
+            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.UpdateFragment"
+        android:label="UpdateFragment" >
+        <action
+            android:id="@+id/action_updateFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentSubject"
             app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
     </fragment>
 </navigation>

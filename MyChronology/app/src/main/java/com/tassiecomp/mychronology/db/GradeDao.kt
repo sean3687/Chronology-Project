@@ -17,4 +17,7 @@ interface GradeDao {
     @Update
     suspend fun updateSubject(homeGrade: HomeGrade)
 
+    @Delete
+    suspend fun deleteSubject(homeGrade: HomeGrade)
+
 }

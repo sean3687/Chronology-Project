@@ -83,11 +83,11 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     private fun insertDataToDatabase() {
 
-        val title = Dialog_cardTitle.text.toString()
-        val description = Dialog_description.text.toString()
-        val weighing = Dialog_weighing.text.toString()
-        val max = Dialog_max.text
-        val min = Dialog_min.text
+        val title = Update_cardTitle.text.toString()
+        val description = Update_description.text.toString()
+        val weighing = Update_Weighing.text.toString()
+        val max = Update_max.text
+        val min = Update_min.text
         var color = colorPicker_button.text.toString()
         Log.d("TAGGG",color)
 

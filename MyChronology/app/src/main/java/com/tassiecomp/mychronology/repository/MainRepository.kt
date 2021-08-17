@@ -19,6 +19,9 @@ class MainRepository(
     suspend fun updateSubject(homeGrade: HomeGrade){
         gradeDao.updateSubject(homeGrade)
     }
+    suspend fun deleteSubject(homeGrade: HomeGrade){
+        gradeDao.deleteSubject(homeGrade)
+    }
 
 
 

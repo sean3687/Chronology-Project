@@ -36,5 +36,10 @@ class MainViewModel(
             repository.updateSubject(homeGrade)
         }
     }
+    fun deleteSubject(homeGrade: HomeGrade){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteSubject(homeGrade)
+        }
+    }
 
 }

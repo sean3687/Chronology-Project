@@ -6,11 +6,15 @@ import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.models.HomeGrade
+import com.tassiecomp.mychronology.ui.fragments.HomeFragment
+import com.tassiecomp.mychronology.ui.fragments.HomeFragmentDirections
+import com.tassiecomp.mychronology.ui.fragments.UpdateFragmentDirections
 import kotlinx.android.synthetic.main.main_home_cardview.view.*
 
 class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {
@@ -50,6 +54,11 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
             subject_iconBackground.backgroundTintList = ColorStateList.valueOf(Color.parseColor(
                 todayGrade.color
             ))
+
+            subject_iconLetter.setOnClickListener{
+                val action = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(todayGrade)
+                findNavController().navigate(action)
+            }
         }
     }
 
