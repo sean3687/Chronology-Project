@@ -31,5 +31,10 @@ class MainViewModel(
         }
 
     }
+    fun updateSubject(homeGrade: HomeGrade){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateSubject(homeGrade)
+        }
+    }
 
 }

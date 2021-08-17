@@ -14,4 +14,7 @@ interface GradeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addSubject(homeGrade:HomeGrade)
 
+    @Update
+    suspend fun updateSubject(homeGrade: HomeGrade)
+
 }

@@ -16,6 +16,10 @@ class MainRepository(
         gradeDao.addSubject(homeGrade)
 
     }
+    suspend fun updateSubject(homeGrade: HomeGrade){
+        gradeDao.updateSubject(homeGrade)
+    }
+
 
 
 }
