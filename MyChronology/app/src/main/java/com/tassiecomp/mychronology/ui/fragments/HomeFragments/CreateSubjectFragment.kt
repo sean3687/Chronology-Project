@@ -1,4 +1,4 @@
-package com.tassiecomp.mychronology.ui.fragments
+package com.tassiecomp.mychronology.ui.fragments.HomeFragments
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -83,6 +83,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     private fun insertDataToDatabase() {
 
+        val id = 0
         val title = Update_cardTitle.text.toString()
         val description = Update_description.text.toString()
         val weighing = Update_Weighing.text.toString()
@@ -97,7 +98,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
                 Log.d("TAGGG",color)
             }
 
-            val subject = HomeGrade(title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color)
+            val subject = HomeGrade(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color)
             mainViewModel.addSubject(subject)
             Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)

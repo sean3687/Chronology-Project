@@ -1,4 +1,4 @@
-package com.tassiecomp.mychronology.ui.fragments
+package com.tassiecomp.mychronology.ui.fragments.HomeFragments
 
 
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
 import com.tassiecomp.mychronology.ui.MainActivity
 import com.tassiecomp.mychronology.ui.MainViewModel
-import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 

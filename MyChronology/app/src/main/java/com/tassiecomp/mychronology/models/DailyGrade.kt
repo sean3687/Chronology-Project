@@ -9,9 +9,10 @@ import kotlinx.android.parcel.Parcelize
     tableName ="dailyGrades"
 )
 data class DailyGrade(
-    @PrimaryKey var title: String,
-    var date: Long,
-    var subjectScore:Double
+    @PrimaryKey(autoGenerate = true)
+    val title: String,
+    val date: Long,
+    val subjectScore:Double
 
 ){
 

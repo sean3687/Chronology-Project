@@ -11,7 +11,9 @@ import kotlinx.android.parcel.Parcelize
 )
 //dfasdf
 data class HomeGrade(
-    @PrimaryKey var title: String,
+    @PrimaryKey(autoGenerate = true)
+    val id:Int,
+    var title: String,
     var description: String,
     var weigthing:String,
     var min:Int,

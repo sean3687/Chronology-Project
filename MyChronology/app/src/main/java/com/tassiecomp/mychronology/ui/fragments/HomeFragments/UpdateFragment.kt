@@ -1,4 +1,4 @@
-package com.tassiecomp.mychronology.ui.fragments
+package com.tassiecomp.mychronology.ui.fragments.HomeFragments
 
 import android.app.AlertDialog
 import android.content.res.ColorStateList
@@ -59,25 +59,26 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
             colorPicker_button.setText(args.currentSubject.color)
 
 
-            topAppBar.setNavigationOnClickListener {
-                findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
-            }
-            topAppBar.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.save -> {
-                        updateDataToDatabase()
-                    }
-                    R.id.delete -> {
-                        deleteData()
-                    }
 
-                }
-                true
-            }
             colorPicker_button.setOnClickListener {
                 setupColorSheet()
             }
 
+        }
+        view.topAppBar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
+        }
+        view.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.save -> {
+                    updateDataToDatabase()
+                }
+                R.id.delete -> {
+                    deleteData()
+                }
+
+            }
+            true
         }
 
         return view
@@ -85,11 +86,12 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
 
 
     private fun updateDataToDatabase() {
-        var title = Update_cardTitle.text.toString()
-        var description = Update_description.text.toString()
-        var weighing = Update_Weighing.text.toString()
-        var min = Update_min.text
-        var max = Update_max.text
+        val id = args.currentSubject.id
+        val title = Update_cardTitle.text.toString()
+        val description = Update_description.text.toString()
+        val weighing = Update_Weighing.text.toString()
+        val min = Update_min.text
+        val max = Update_max.text
         var color = colorPicker_button.text.toString()
         Log.d("TAGGG", "updated title$title")
 
@@ -97,9 +99,12 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
             if (color == "Pick Color") {
                 color = "#c2c2c2"
                 Log.d("TAGGG", color)
+            } else{
+
             }
 
-            val subject = HomeGrade(
+            val updatedSubject = HomeGrade(
+                id,
                 title,
                 description,
                 weighing,
@@ -107,7 +112,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                 Integer.parseInt(min.toString()),
                 color
             )
-            mainViewModel.updateSubject(subject)
+
+            mainViewModel.updateSubject(updatedSubject)
             Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
         } else {

@@ -2,7 +2,6 @@ package com.tassiecomp.mychronology.adapters
 
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.models.HomeGrade
-import com.tassiecomp.mychronology.ui.fragments.HomeFragment
 import com.tassiecomp.mychronology.ui.fragments.HomeFragmentDirections
-import com.tassiecomp.mychronology.ui.fragments.UpdateFragmentDirections
 import kotlinx.android.synthetic.main.main_home_cardview.view.*
 
 class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {
@@ -23,7 +20,7 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
 
     class differCallback:DiffUtil.ItemCallback<HomeGrade>(){
         override fun areItemsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
