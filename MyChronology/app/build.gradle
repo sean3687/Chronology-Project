@@ -80,6 +80,8 @@ dependencies {
     //colorsheet
     implementation "dev.sasikanth:colorsheet:1.0.1"
 
+    //datePicker
+    implementation "com.github.badoualy:datepicker-timeline:c6dcd05737"
 
 
 
