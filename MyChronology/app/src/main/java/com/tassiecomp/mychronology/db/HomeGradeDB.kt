@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.HomeGrade
 
 
 @Database(
-    entities = [HomeGrade::class], version = 1
+    entities = [HomeGrade::class, DailyGrade::class], version = 1
 )
 
 abstract class HomeGradeDB: RoomDatabase() {

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.models.HomeGrade
-import com.tassiecomp.mychronology.ui.fragments.HomeFragmentDirections
+import com.tassiecomp.mychronology.ui.fragments.HomeFragments.HomeFragmentDirections
 import kotlinx.android.synthetic.main.main_home_cardview.view.*
 
 class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {

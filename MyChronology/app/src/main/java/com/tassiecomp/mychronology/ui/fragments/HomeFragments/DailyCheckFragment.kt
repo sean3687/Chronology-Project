@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.github.badoualy.datepicker.MonthView.DateLabelAdapter
 import com.tassiecomp.mychronology.R
 import kotlinx.android.synthetic.main.fragment_daily_check.view.*
 import java.util.*
@@ -24,16 +23,16 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         val month = c.get(Calendar.MONTH)
         val year = c.get(Calendar.YEAR)
 
-        view.apply {
-            timeLine.setFirstVisibleDate()
-            timeLine.setLastVisibleDate(day,month,year)
-
-            timeLine.setDateLabelAdapter(DateLabelAdapter { calendar, index ->
-                Integer.toString(
-                    calendar[Calendar.MONTH] + 1
-                ) + "/" + calendar[Calendar.YEAR] % 2000
-            })
-        }
+//        view.apply {
+//            timeLine.setFirstVisibleDate()
+//            timeLine.setLastVisibleDate(day,month,year)
+//
+//            timeLine.setDateLabelAdapter(DateLabelAdapter { calendar, index ->
+//                Integer.toString(
+//                    calendar[Calendar.MONTH] + 1
+//                ) + "/" + calendar[Calendar.YEAR] % 2000
+//            })
+//        }
 
 
         return view
