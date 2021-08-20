@@ -56,6 +56,11 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
                 val action = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(todayGrade)
                 findNavController().navigate(action)
             }
+
+            Add_dailycheck.setOnClickListener{
+                val action = HomeFragmentDirections.actionHomeFragmentToDailyCheckFragment(todayGrade)
+                findNavController().navigate(action)
+            }
         }
     }
 

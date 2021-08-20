@@ -1,6 +1,7 @@
 package com.tassiecomp.mychronology.ui.fragments.HomeFragments
 
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorInt
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -21,6 +23,9 @@ import dev.sasikanth.colorsheet.ColorSheet
 import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.create_subject_dialog.*
 import kotlinx.android.synthetic.main.create_subject_dialog.view.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
@@ -81,6 +86,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun insertDataToDatabase() {
 
         val id = 0
@@ -90,7 +96,13 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
         val max = Update_max.text
         val min = Update_min.text
         var color = colorPicker_button.text.toString()
-        Log.d("TAGGG",color)
+
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ISO_DATE
+        val created = current.format(formatter)
+
+
+            Log.d("TAGGG","$color $created")
 
         if(inputCheck(title,description,weighing,max!!,min!!)){
             if(color =="Pick Color"){
@@ -98,7 +110,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
                 Log.d("TAGGG",color)
             }
 
-            val subject = HomeGrade(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color)
+            val subject = HomeGrade(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color,created)
             mainViewModel.addSubject(subject)
             Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)

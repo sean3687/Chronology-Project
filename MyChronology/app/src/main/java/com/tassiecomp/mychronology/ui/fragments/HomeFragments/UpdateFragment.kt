@@ -93,6 +93,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
         val min = Update_min.text
         val max = Update_max.text
         var color = colorPicker_button.text.toString()
+        val created = args.currentSubject.created
         Log.d("TAGGG", "updated title$title")
 
         if (inputCheck(title, description, weighing, max!!, min!!)) {
@@ -110,7 +111,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                 weighing,
                 Integer.parseInt(max.toString()),
                 Integer.parseInt(min.toString()),
-                color
+                color,
+                created
             )
 
             mainViewModel.updateSubject(updatedSubject)
