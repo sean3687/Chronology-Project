@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/dailyCheckFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.DailyCheckFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
         android:label="DailyCheckFragment" >
         <action
             android:id="@+id/action_dailyCheckFragment_to_homeFragment"

@@ -2,7 +2,8 @@
     <!--    navigation-->
     <string name="app_name">MyChronology</string>
     <string name="main_nav_weekReport">WeekReport</string>
-    <string name="main_nav_home">Home</string>
+    <string name="main_nav_home">Subjects</string>
+    <string name="main_nav_Daily">Daily Check</string>>
     <string name="main_nav_chronology">Chronology</string>
 
     <!--    create subject dialog-->
@@ -22,9 +23,12 @@
     <string name="wrapcontents">wrap_content</string>
 
     <!--    home fragment-->
-    <string name="HomeTitle">Daily Check</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="HomeTitle">Manage Subject</string>
+
+
+
+<!--    Daily fragment-->
+    <string name="DailyTitle">Daily Check</string>
 
 
 </resources>

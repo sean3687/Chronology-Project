@@ -96,6 +96,8 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
         val created = args.currentSubject.created
         Log.d("TAGGG", "updated title$title")
 
+        Log.d("TAGGG", "created $created")
+
         if (inputCheck(title, description, weighing, max!!, min!!)) {
             if (color == "Pick Color") {
                 color = "#c2c2c2"
@@ -113,6 +115,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
                 Integer.parseInt(min.toString()),
                 color,
                 created
+
             )
 
             mainViewModel.updateSubject(updatedSubject)

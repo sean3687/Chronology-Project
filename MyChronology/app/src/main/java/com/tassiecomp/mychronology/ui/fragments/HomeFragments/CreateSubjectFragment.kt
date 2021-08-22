@@ -1,7 +1,6 @@
 package com.tassiecomp.mychronology.ui.fragments.HomeFragments
 
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorInt
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -86,7 +84,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun insertDataToDatabase() {
 
         val id = 0
@@ -97,12 +95,12 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
         val min = Update_min.text
         var color = colorPicker_button.text.toString()
 
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ISO_DATE
-        val created = current.format(formatter)
+        val onlyDate: LocalDate = LocalDate.now()
+        val created: String = onlyDate.toString()
+
+        Log.d("TAGGG", "$created")
 
 
-            Log.d("TAGGG","$color $created")
 
         if(inputCheck(title,description,weighing,max!!,min!!)){
             if(color =="Pick Color"){
@@ -117,9 +115,6 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
         } else{
             Toast.makeText(App.instance, "Please fill out all fields", Toast.LENGTH_SHORT).show()
         }
-
-
-
 
     }
 

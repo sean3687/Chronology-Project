@@ -5,11 +5,19 @@
         android:enabled="true"
         android:icon="@drawable/ic_week_report_24"
         android:title="@string/main_nav_weekReport"/>
+
     <item
         android:id="@+id/homeFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_home_24"
+        android:icon="@drawable/ic_baseline_assignment_24"
         android:title="@string/main_nav_home"/>
+
+
+    <item
+        android:id="@+id/dailyCheckFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_create_24"
+        android:title="@string/main_nav_Daily"/>
     <item
         android:id="@+id/weekReportFragment"
         android:enabled="true"

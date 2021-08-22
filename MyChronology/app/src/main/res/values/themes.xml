@@ -44,6 +44,13 @@
 
     </style>
 
+    <style name="datePickerTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryVariant">@color/Dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorButtonNormal">@color/white</item>
+
+    </style>
 
 
 </resources>
