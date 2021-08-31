@@ -73,7 +73,6 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
         val colors = resources.getIntArray(R.array.colors)
         ColorSheet().cornerRadius(8)
             .colorPicker(
-
                 colors = colors,
                 selectedColor = selectedColor,
                 listener = { color ->
