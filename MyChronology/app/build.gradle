@@ -12,6 +12,10 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.tassiecomp.mychronology"
         minSdkVersion 21
@@ -85,7 +89,7 @@ dependencies {
     implementation "dev.sasikanth:colorsheet:1.0.1"
 
     //datepicker
-    implementation 'com.github.kizitonwose:CalendarView:0.3.2'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 
 
 

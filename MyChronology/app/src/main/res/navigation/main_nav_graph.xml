@@ -22,9 +22,6 @@
         <action
             android:id="@+id/action_homeFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_dailyCheckFragment"
-            app:destination="@id/dailyCheckFragment" />
     </fragment>
     <fragment
         android:id="@+id/weekReportFragment"
@@ -60,11 +57,9 @@
     <fragment
         android:id="@+id/dailyCheckFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
-        android:label="DailyCheckFragment" >
+        android:label="dailyCheckFragment" >
         <action
-            android:id="@+id/action_dailyCheckFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument android:name="selectedSubject"
-            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+            android:id="@+id/action_dailyCheckFragment_to_placeholder"
+            app:destination="@id/placeholder" />
     </fragment>
 </navigation>

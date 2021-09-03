@@ -34,6 +34,10 @@
     <color name= "brown">#5d4037</color>
     <color name= "blueGrey">#455a64</color>
 
+<!--    calendar color-->
+    <color name="Selected_bg">#D2E3FC</color>
+    <color name="today_bg">#1973E8</color>
+
 
 
 </resources>

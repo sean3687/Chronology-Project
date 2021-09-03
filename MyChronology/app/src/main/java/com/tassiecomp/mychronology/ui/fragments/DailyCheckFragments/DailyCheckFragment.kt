@@ -2,13 +2,15 @@ package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,15 +23,25 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.DailyRecycleviewAdapter
 import com.tassiecomp.mychronology.adapters.Event
+import com.tassiecomp.mychronology.databinding.CalendarDayLayoutBinding
+import com.tassiecomp.mychronology.databinding.CalendarHeaderLayoutBinding
+import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
 import kotlinx.android.synthetic.main.fragment_daily_check.*
-import kotlinx.android.synthetic.main.fragment_daily_check.view.*
-import org.threeten.bp.LocalDate
-import org.threeten.bp.YearMonth
+import java.time.LocalDate
+import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
+
+    var selectedDate: java.time.LocalDate? = null
+    val today = LocalDate.now()
+    val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
+    val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
+    val selectionFormatter = DateTimeFormatter.ofPattern("yyyy MMM d")
+    private val events = mutableMapOf<LocalDate, List<Event>>()
+
+    lateinit var binding: FragmentDailyCheckBinding
 
     private val eventsAdapter = DailyRecycleviewAdapter {
         AlertDialog.Builder(requireContext())
@@ -43,26 +55,22 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
 
     private fun deleteEvent(event: Event) {
-        TODO("Not yet implemented")
+        Log.d("tagg", "message")
         //delete  event from database
     }
 
-    private val args by navArgs<DailyCheckFragmentArgs>()
-
-    override val titleRes: Int = 3
-
-    private var selectedDate: LocalDate? = null
-    private val today = LocalDate.now()
-
-    private val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
-    private val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
-    private val selectionFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
-    private val events = mutableMapOf<LocalDate, List<Event>>()
-
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // make changes to view and its children here
+        return inflater.inflate(R.layout.fragment_daily_check, container, false)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.daily_check_recyclerView.apply {
+        binding = FragmentDailyCheckBinding.bind(view)
+        binding.dailyCheckRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = eventsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
@@ -70,13 +78,13 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        view.calendarView.apply {
+        binding.calendarView.apply {
             setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
             scrollToMonth(currentMonth)
         }
 
         if (savedInstanceState == null) {
-            view.calendarView.post {
+            binding.calendarView.post {
                 // Show today's events initially.
                 selectDate(today)
             }
@@ -85,6 +93,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
+            val binding = CalendarDayLayoutBinding.bind(view)
 
             init {
                 view.setOnClickListener {
@@ -95,20 +104,48 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
             }
         }
 
-        view.calendarView.dayBinder = object : DayBinder<DayViewContainer> {
+        binding.calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
 
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
+                val textView = container.binding.DayText
+                val dotView = container.binding.DotView
 
+
+                textView.text = day.date.dayOfMonth.toString()
+
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    textView.makeVisible()
+                    when (day.date) {
+                        today -> {
+                            textView.setTextColorRes(R.color.white)
+                            textView.setBackgroundResource(R.drawable.calendar_today_bg)
+                            dotView.makeInVisible()
+                        }
+                        selectedDate -> {
+                            textView.setTextColorRes(R.color.lightBlue)
+                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
+                            dotView.makeInVisible()
+                        }
+                        else -> {
+                            textView.setTextColorRes(R.color.black)
+                            textView.background = null
+                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+                        }
+                    }
+                } else {
+                    textView.makeInVisible()
+                    dotView.makeInVisible()
+                }
 
             }
 
 
         }
 
-        view.calendarView.monthScrollListener = {
-            homeActivityToolbar.title = if (it.year == today.year) {
+        binding.calendarView.monthScrollListener = {
+            home_toolbar.title = if (it.year == today.year) {
                 titleSameYearFormatter.format(it.yearMonth)
             } else {
                 titleFormatter.format(it.yearMonth)
@@ -120,9 +157,9 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         }
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = Example3CalendarHeaderBinding.bind(view).legendLayout.root
+            val legendLayout = CalendarHeaderLayoutBinding.bind(view).legendLayout.root
         }
-        view.calendarView.monthHeaderBinder = object :
+        binding.calendarView.monthHeaderBinder = object :
             MonthHeaderFooterBinder<MonthViewContainer> {
             override fun create(view: View) = MonthViewContainer(view)
             override fun bind(container: MonthViewContainer, month: CalendarMonth) {
@@ -132,7 +169,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                     container.legendLayout.children.map { it as TextView }
                         .forEachIndexed { index, tv ->
                             tv.text = daysOfWeek[index].name.first().toString()
-                            tv.setTextColorRes(R.color.example_3_black)
+                            tv.setTextColorRes(R.color.black)
                         }
                 }
             }
@@ -141,23 +178,13 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        val view = inflater.inflate(R.layout.calendar_subject_cardview, container, false)
-
-
-        return view
-    }
 
     private fun selectDate(date: LocalDate) {
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
-            oldDate?.let { calendarView.notifyDateChanged(it) }
-            calendarView.notifyDateChanged(date)
+            oldDate?.let { binding.calendarView.notifyDateChanged(it) }
+            binding.calendarView.notifyDateChanged(date)
             updateAdapterForDate(date)
         }
     }
@@ -166,6 +193,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         eventsAdapter.apply { //viewmodel로 observe되면 실행되게
 
         }
+        binding.SelectedDateText.text = selectionFormatter.format(date)
 
     }
 }
