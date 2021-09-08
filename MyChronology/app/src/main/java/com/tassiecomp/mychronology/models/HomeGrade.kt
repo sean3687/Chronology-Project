@@ -20,7 +20,6 @@ data class HomeGrade(
     var max:Int,
     var color: String,
     var created: String,
-    var unit:String
 
 ):Parcelable {
 

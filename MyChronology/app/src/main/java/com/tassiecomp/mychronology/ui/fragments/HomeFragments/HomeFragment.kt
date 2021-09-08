@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
 import com.tassiecomp.mychronology.ui.MainActivity
+
 import com.tassiecomp.mychronology.ui.MainViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*

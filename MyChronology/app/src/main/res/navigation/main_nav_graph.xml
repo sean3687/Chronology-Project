@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_nav_graph"
-    app:startDestination="@id/chronologyFragment">
+    android:id="@+id/main_nav_graph">
 
     <fragment
         android:id="@+id/chronologyFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.ChronologyFragment"
-        android:label="ChronologyFragment" >
-        <action
-            android:id="@+id/action_chronologyFragment_to_placeholder"
-            app:destination="@id/placeholder" />
-    </fragment>
+        android:label="ChronologyFragment" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.HomeFragment"
@@ -26,12 +21,7 @@
     <fragment
         android:id="@+id/weekReportFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.WeekReportFragment"
-        android:label="WeekReportFragment" >
-        <action
-            android:id="@+id/action_weekReportFragment_to_placeholder"
-            app:destination="@id/placeholder" />
-    </fragment>
-    <fragment android:id="@+id/placeholder" />
+        android:label="WeekReportFragment" />
     <fragment
         android:id="@+id/createSubjectFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.CreateSubjectFragment"
@@ -57,9 +47,5 @@
     <fragment
         android:id="@+id/dailyCheckFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
-        android:label="dailyCheckFragment" >
-        <action
-            android:id="@+id/action_dailyCheckFragment_to_placeholder"
-            app:destination="@id/placeholder" />
-    </fragment>
+        android:label="dailyCheckFragment" />
 </navigation>

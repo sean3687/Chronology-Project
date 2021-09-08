@@ -1,6 +1,7 @@
 package com.tassiecomp.mychronology
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.tassiecomp.mychronology.adapters.Event
 import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
@@ -15,11 +16,13 @@ class App: Application(){
         lateinit var viewModel: MainViewModel
         lateinit var readAllData: LiveData<List<HomeGrade>>
         lateinit var repository: MainRepository
+        lateinit var mContext: Context
     }
 
     override fun onCreate() {
         super.onCreate()
         instance = this
+
 
     }
 
