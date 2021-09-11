@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/chronologyFragment"
+        android:id="@+id/Chronology"
         android:enabled="true"
         android:icon="@drawable/ic_week_report_24"
         android:title="@string/main_nav_weekReport"/>
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/manageSubject"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_assignment_24"
         android:title="@string/main_nav_home"/>
 
 
     <item
-        android:id="@+id/dailyCheckFragment"
+        android:id="@+id/dailyCheck"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_create_24"
         android:title="@string/main_nav_Daily"/>
     <item
-        android:id="@+id/weekReportFragment"
+        android:id="@+id/weekReport"
         android:enabled="true"
         android:icon="@drawable/ic_chronology_24"
         android:title="@string/main_nav_chronology"/>

@@ -151,17 +151,17 @@ class  DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
             }
 
-            binding.calendarView.monthScrollListener = {
-                home_toolbar.title = if (it.year == today.year) {
-                    titleSameYearFormatter.format(it.yearMonth)
-                } else {
-                    titleFormatter.format(it.yearMonth)
-                }
-
-                // Select the first day of the month when
-                // we scroll to a new month.
-                selectDate(it.yearMonth.atDay(1))
-            }
+//            binding.calendarView.monthScrollListener = {
+//                home_toolbar.title = if (it.year == today.year) {
+//                    titleSameYearFormatter.format(it.yearMonth)
+//                } else {
+//                    titleFormatter.format(it.yearMonth)
+//                }
+//
+//                // Select the first day of the month when
+//                // we scroll to a new month.
+//                selectDate(it.yearMonth.atDay(1))
+//            }
 
             class MonthViewContainer(view: View) : ViewContainer(view) {
                 val legendLayout = CalendarHeaderLayoutBinding.bind(view).legendLayout.root

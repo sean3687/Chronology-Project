@@ -1,51 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_nav_graph">
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/dailyCheck">
 
-    <fragment
-        android:id="@+id/chronologyFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.ChronologyFragment"
-        android:label="ChronologyFragment" />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_createSubjectFragment"
-            app:destination="@id/createSubjectFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/weekReportFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.WeekReportFragment"
-        android:label="WeekReportFragment" />
-    <fragment
-        android:id="@+id/createSubjectFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.CreateSubjectFragment"
-        android:label="CreateSubjectFragment" >
-        <action
-            android:id="@+id/action_createSubjectFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="homeGrade"
-            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.UpdateFragment"
-        android:label="UpdateFragment" >
-        <action
-            android:id="@+id/action_updateFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <argument
-            android:name="currentSubject"
-            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
-    </fragment>
-    <fragment
-        android:id="@+id/dailyCheckFragment"
-        android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
-        android:label="dailyCheckFragment" />
+    <include app:graph="@navigation/manage_subject"/>
+    <include app:graph="@navigation/week_report"/>
+    <include app:graph="@navigation/daily_check"/>
+    <include app:graph ="@navigation/chronology"/>
 </navigation>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/manageSubject"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_createSubjectFragment"
+            app:destination="@id/createSubjectFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createSubjectFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.CreateSubjectFragment"
+        android:label="CreateSubjectFragment" >
+        <action
+            android:id="@+id/action_createSubjectFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="homeGrade"
+            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.HomeFragments.UpdateFragment"
+        android:label="UpdateFragment" >
+        <action
+            android:id="@+id/action_updateFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="currentSubject"
+            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+    </fragment>
+</navigation>

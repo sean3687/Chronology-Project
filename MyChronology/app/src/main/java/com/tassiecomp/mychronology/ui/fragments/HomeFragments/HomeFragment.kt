@@ -31,16 +31,12 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        view.home_toolbar.setOnMenuItemClickListener{
-            when(it.itemId) {
-                R.id.Add_subject -> {
-                    findNavController()
-                        .navigate(R.id.action_homeFragment_to_createSubjectFragment)
+        view.floatingActionButton.setOnClickListener {
 
-                    Log.d("TAGG", "Create subject clicked")
-                }
-            }
-            true
+            findNavController().navigate(R.id.action_homeFragment_to_createSubjectFragment)
+
+            Log.d("TAGG", "Create subject clicked")
+
         }
 
 

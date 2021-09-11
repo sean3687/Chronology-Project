@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dailyCheck"
+    app:startDestination="@id/dailyCheckFragment">
+
+    <fragment
+        android:id="@+id/dailyCheckFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
+        android:label="DailyCheckFragment" />
+</navigation>
