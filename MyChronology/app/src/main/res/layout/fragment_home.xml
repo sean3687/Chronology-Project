@@ -9,31 +9,29 @@
     android:theme="@style/AppTheme"
     >
 
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/homeAppbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/homeAppbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-<!--        <com.google.android.material.appbar.MaterialToolbar-->
-<!--            android:id="@+id/home_toolbar"-->
-<!--            style="@style/Widget.MaterialComponents.Toolbar.Primary"-->
-<!--            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            app:menu="@menu/home_top_app_bar"-->
-<!--            app:title="@string/HomeTitle"-->
-<!--            app:titleTextColor="@color/headline"/>-->
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/home_toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            app:title="@string/HomeTitle"/>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeAppbar"
         tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout

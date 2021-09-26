@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import com.tassiecomp.mychronology.db.GradeDao
 import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.HomeGrade
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainRepository(
@@ -13,14 +16,21 @@ class MainRepository(
     val readAllData_daily: LiveData<List<DailyGrade>> = gradeDao.readAllData_daily()
 
     suspend fun addSubject(homeGrade: HomeGrade) {
-        gradeDao.addSubject(homeGrade)
+        CoroutineScope(Dispatchers.IO).launch {
+            gradeDao.addSubject(homeGrade)
+        }
+
 
     }
     suspend fun updateSubject(homeGrade: HomeGrade){
-        gradeDao.updateSubject(homeGrade)
+        CoroutineScope(Dispatchers.IO).launch {
+            gradeDao.updateSubject(homeGrade)
+        }
     }
     suspend fun deleteSubject(homeGrade: HomeGrade){
-        gradeDao.deleteSubject(homeGrade)
+        CoroutineScope(Dispatchers.IO).launch {
+            gradeDao.deleteSubject(homeGrade)
+        }
     }
 
 

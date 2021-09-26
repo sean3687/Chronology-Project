@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,15 +33,16 @@ import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
 
+class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
-class  DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
-
-    var selectedDate: java.time.LocalDate? = null
+    var selectedDate: LocalDate? = null
     val today = LocalDate.now()
     val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
     val selectionFormatter = DateTimeFormatter.ofPattern("yyyy MMM d")
     private val events = mutableMapOf<LocalDate, List<Event>>()
+
+
 
     lateinit var binding: FragmentDailyCheckBinding
 
@@ -68,130 +71,126 @@ class  DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         val view = inflater.inflate(R.layout.fragment_daily_check, container, false)
 
 
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentDailyCheckBinding.bind(view)
+        binding.dailyCheckRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            adapter = eventsAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        }
+        val daysOfWeek = daysOfWeekFromLocale()
+        val currentMonth = YearMonth.now()
+        Log.d("TAGG", "current month: $currentMonth")
 
-            binding = FragmentDailyCheckBinding.bind(view)
-            binding.dailyCheckRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-                adapter = eventsAdapter
-                addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+        //range of calendar
+        binding.calendarView.apply {
+            setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
+            scrollToMonth(currentMonth)
+        }
+
+        if (savedInstanceState == null) {
+            binding.calendarView.post {
+                // Show today's events initially.
+                selectDate(today)
             }
-            val daysOfWeek = daysOfWeekFromLocale()
-            val currentMonth = YearMonth.now()
+        }
 
-            binding.calendarView.apply {
-                setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
-                scrollToMonth(currentMonth)
-            }
+        class DayViewContainer(view: View) : ViewContainer(view) {
+            lateinit var day: CalendarDay // Will be set when this container is bound.
+            val binding = CalendarDayLayoutBinding.bind(view)
 
-            if (savedInstanceState == null) {
-                binding.calendarView.post {
-                    // Show today's events initially.
-                    selectDate(today)
-                }
-            }
-
-
-            class DayViewContainer(view: View) : ViewContainer(view) {
-                lateinit var day: CalendarDay // Will be set when this container is bound.
-                val binding = CalendarDayLayoutBinding.bind(view)
-
-                init {
-                    view.setOnClickListener {
-                        if (day.owner == DayOwner.THIS_MONTH) {
-                            selectDate(day.date)
-                        }
-                    }
-                }
-            }
-
-            binding.calendarView.dayBinder = object : DayBinder<DayViewContainer> {
-                override fun create(view: View) = DayViewContainer(view)
-
-                override fun bind(container: DayViewContainer, day: CalendarDay) {
-                    container.day = day
-                    val textView = container.binding.DayText
-                    val dotView = container.binding.DotView
-
-
-                    textView.text = day.date.dayOfMonth.toString()
-
+            init {
+                view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
-                        textView.makeVisible()
-                        when (day.date) {
-                            today -> {
-                                textView.setTextColorRes(R.color.white)
-                                textView.setBackgroundResource(R.drawable.calendar_today_bg)
-                                dotView.makeInVisible()
-                            }
-                            selectedDate -> {
-                                textView.setTextColorRes(R.color.lightBlue)
-                                textView.setBackgroundResource(R.drawable.calendar_selected_bg)
-                                dotView.makeInVisible()
-                            }
-                            else -> {
-                                textView.setTextColorRes(R.color.black)
-                                textView.background = null
-                                dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
-                            }
-                        }
-                    } else {
-                        textView.makeInVisible()
-                        dotView.makeInVisible()
-                    }
-
-                }
-
-
-            }
-
-//            binding.calendarView.monthScrollListener = {
-//                home_toolbar.title = if (it.year == today.year) {
-//                    titleSameYearFormatter.format(it.yearMonth)
-//                } else {
-//                    titleFormatter.format(it.yearMonth)
-//                }
-//
-//                // Select the first day of the month when
-//                // we scroll to a new month.
-//                selectDate(it.yearMonth.atDay(1))
-//            }
-
-            class MonthViewContainer(view: View) : ViewContainer(view) {
-                val legendLayout = CalendarHeaderLayoutBinding.bind(view).legendLayout.root
-            }
-            binding.calendarView.monthHeaderBinder = object :
-                MonthHeaderFooterBinder<MonthViewContainer> {
-                override fun create(view: View) = MonthViewContainer(view)
-                override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                    // Setup each header day text if we have not done that already.
-                    if (container.legendLayout.tag == null) {
-                        container.legendLayout.tag = month.yearMonth
-                        container.legendLayout.children.map { it as TextView }
-                            .forEachIndexed { index, tv ->
-                                tv.text = daysOfWeek[index].name.first().toString()
-                                tv.setTextColorRes(R.color.black)
-                            }
+                        selectDate(day.date)
                     }
                 }
             }
         }
 
+        binding.calendarView.dayBinder = object : DayBinder<DayViewContainer> {
+            override fun create(view: View) = DayViewContainer(view)
+            override fun bind(container: DayViewContainer, day: CalendarDay) {
+                container.day = day
+                val textView = container.binding.DayText
+                val dotView = container.binding.DotView
+
+                textView.text = day.date.dayOfMonth.toString()
+
+                if (day.owner == DayOwner.THIS_MONTH) {
+                    textView.makeVisible()
+                    when (day.date) {
+                        today -> {
+                            textView.setTextColorRes(R.color.white)
+                            textView.setBackgroundResource(R.drawable.calendar_today_bg)
+                            dotView.makeInVisible()
+                        }
+                        selectedDate -> {
+                            textView.setTextColorRes(R.color.lightBlue)
+                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
+                            dotView.makeInVisible()
+                        }
+                        else -> {
+                            textView.setTextColorRes(R.color.black)
+                            textView.background = null
+                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+                        }
+                    }
+                } else {
+                    textView.makeInVisible()
+                    dotView.makeInVisible()
+                }
+
+            }
 
 
+        }
 
+        binding.calendarView.monthScrollListener = {
+            home_toolbar.title = if (it.year == today.year) {
+                titleSameYearFormatter.format(it.yearMonth)
+            } else {
+                titleFormatter.format(it.yearMonth)
+            }
 
+            // Select the first day of the month when
+            // we scroll to a new month.
+            selectDate(it.yearMonth.atDay(1))
+        }
 
+        class MonthViewContainer(view: View) : ViewContainer(view) {
+            val legendLayout = CalendarHeaderLayoutBinding.bind(view).legendLayout.root
+        }
 
+        binding.calendarView.monthHeaderBinder = object :
+            MonthHeaderFooterBinder<MonthViewContainer> {
+            override fun create(view: View) = MonthViewContainer(view)
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
+                // Setup each header day text if we have not done that already.
+                if (container.legendLayout.tag == null) {
+                    container.legendLayout.tag = month.yearMonth
+                    container.legendLayout.children.map { it as TextView }
+                        .forEachIndexed { index, tv ->
+                            tv.text = daysOfWeek[index].name.first().toString()
+                            tv.setTextColorRes(R.color.black)
+                        }
+                }
+            }
+        }
 
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+    }
 
     private fun selectDate(date: LocalDate) {
+
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
@@ -208,5 +207,9 @@ class  DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         binding.SelectedDateText.text = selectionFormatter.format(date)
 
     }
+
+
+
+
 }
 

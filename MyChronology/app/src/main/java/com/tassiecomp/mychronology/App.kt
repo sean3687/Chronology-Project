@@ -19,11 +19,6 @@ class App: Application(){
         lateinit var mContext: Context
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
 
-
-    }
 
 }
