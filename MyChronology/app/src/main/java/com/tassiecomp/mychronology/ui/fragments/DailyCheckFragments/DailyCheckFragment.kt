@@ -27,7 +27,9 @@ import com.tassiecomp.mychronology.adapters.Event
 import com.tassiecomp.mychronology.databinding.CalendarDayLayoutBinding
 import com.tassiecomp.mychronology.databinding.CalendarHeaderLayoutBinding
 import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_daily_check.*
+import kotlinx.android.synthetic.main.fragment_daily_check.view.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -76,6 +78,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding = FragmentDailyCheckBinding.bind(view)
         binding.dailyCheckRecyclerView.apply {
@@ -152,7 +155,8 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         }
 
         binding.calendarView.monthScrollListener = {
-            home_toolbar.title = if (it.year == today.year) {
+//            home_toolbar.title =
+                if (it.year == today.year) {
                 titleSameYearFormatter.format(it.yearMonth)
             } else {
                 titleFormatter.format(it.yearMonth)
@@ -182,7 +186,6 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                 }
             }
         }
-
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

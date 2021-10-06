@@ -1,4 +1,4 @@
-package com.tassiecomp.mychronology.ui.fragments.HomeFragments
+package com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment
 
 import android.app.AlertDialog
 import android.content.res.ColorStateList
@@ -22,7 +22,14 @@ import com.tassiecomp.mychronology.ui.MainViewModel
 import dev.sasikanth.colorsheet.ColorSheet
 import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.create_subject_dialog.*
+import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.android.synthetic.main.fragment_update.view.Update_Weighing
+import kotlinx.android.synthetic.main.fragment_update.view.Update_cardTitle
+import kotlinx.android.synthetic.main.fragment_update.view.Update_description
+import kotlinx.android.synthetic.main.fragment_update.view.Update_max
+import kotlinx.android.synthetic.main.fragment_update.view.Update_min
+import kotlinx.android.synthetic.main.fragment_update.view.colorPicker_button
 
 
 class UpdateFragment : Fragment(R.layout.fragment_update) {
@@ -63,26 +70,22 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
             colorPicker_button.setOnClickListener {
                 setupColorSheet()
             }
-
-        }
-        view.topAppBar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
-        }
-        view.topAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.save -> {
-                    updateDataToDatabase()
-                }
-                R.id.delete -> {
-                    deleteData()
-                }
-
+            backSpace_update.setOnClickListener {
+                findNavController().navigate(R.id.action_updateFragment_to_manageSubjectFragment)
             }
-            true
+            Save_update_subject.setOnClickListener {
+                updateDataToDatabase()
+            }
+            delete_update_subject.setOnClickListener {
+                deleteData()
+            }
         }
-
         return view
+
+
+
     }
+
 
 
     private fun updateDataToDatabase() {
@@ -119,8 +122,9 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
             )
 
             mainViewModel.updateSubject(updatedSubject)
-            Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_updateFragment_to_manageSubjectFragment)
+
+
         } else {
             Toast.makeText(App.instance, "Please fill out all fields", Toast.LENGTH_SHORT).show()
         }
@@ -130,7 +134,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setPositiveButton("Yse") { _, _ ->
             mainViewModel.deleteSubject(args.currentSubject)
-            findNavController().navigate(R.id.action_updateFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_updateFragment_to_manageSubjectFragment)
             Toast.makeText(
                 requireContext(),
                 "Suscessfully removed: ${args.currentSubject.title}",

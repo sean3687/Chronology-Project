@@ -1,4 +1,4 @@
-package com.tassiecomp.mychronology.ui.fragments.HomeFragments
+package com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
+
 import com.tassiecomp.mychronology.models.HomeGrade
 import com.tassiecomp.mychronology.ui.MainViewModel
 import dev.sasikanth.colorsheet.ColorSheet
@@ -43,27 +44,25 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
         val view = inflater.inflate(R.layout.create_subject_dialog, container, false)
 
-        mainViewModel =ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        view.topAppBar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)
+        view.apply{
+            Cancel_create_subject.setOnClickListener{
+                findNavController().navigate(R.id.action_createSubjectFragment_to_manageSubjectFragment)
 
-            Log.d("TAGG", "Close create subject clicked")
-        }
-        view.topAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.save -> {
-                    insertDataToDatabase()
-                }
+                Log.d("TAGG", "Close create subject clicked")
             }
-            true
-        }
+            Save_create_subject.setOnClickListener {
+                insertDataToDatabase()
+            }
+            backSpace_create.setOnClickListener{
+                findNavController().navigate(R.id.action_createSubjectFragment_to_manageSubjectFragment)
+            }
+            colorPicker_button.setOnClickListener {
+                setupColorSheet()
+            }
 
-        //colorSheet
-        view.colorPicker_button.setOnClickListener{
-            setupColorSheet()
         }
-
 
         return view
     }
@@ -108,8 +107,8 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
 
             val subject = HomeGrade(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color,created)
             mainViewModel.addSubject(subject)
-            Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_createSubjectFragment_to_homeFragment)
+//            Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_createSubjectFragment_to_manageSubjectFragment)
         } else{
             Toast.makeText(App.instance, "Please fill out all fields", Toast.LENGTH_SHORT).show()
         }

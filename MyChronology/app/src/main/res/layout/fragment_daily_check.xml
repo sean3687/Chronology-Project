@@ -10,22 +10,13 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/homeAppbar"
+        android:id="@+id/DailyCheckAppbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/home_toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/DailyTitle"
-            app:titleTextColor="@color/headline"
-            />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -33,7 +24,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeAppbar">
+        app:layout_constraintTop_toBottomOf="@+id/DailyCheckAppbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +41,7 @@
                 app:cv_scrollMode="paged"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/homeAppbar" />
+                app:layout_constraintTop_toBottomOf="@+id/DailyCheckAppbar" />
 
             <TextView
                 android:id="@+id/SelectedDateText"

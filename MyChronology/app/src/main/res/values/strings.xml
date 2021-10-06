@@ -22,12 +22,13 @@
     <!--    constraint-->
     <string name="wrapcontents">wrap_content</string>
 
-    <!--    home fragment-->
-    <string name="HomeTitle">Manage Subject</string>
+    <!--    manageSubject fragment-->
+    <string name="ManageSubjectTitle">Manage Subject</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 
-
-<!--    Daily fragment-->
+    <!--    Daily fragment-->
     <string name="DailyTitle">Daily Check</string>
 
 

@@ -1,25 +1,24 @@
-package com.tassiecomp.mychronology.ui.fragments.HomeFragments
+package com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment
 
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
-import com.tassiecomp.mychronology.ui.MainActivity
-
 import com.tassiecomp.mychronology.ui.MainViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.tassiecomp.mychronology.ui.ManageSubjectActivity
+import kotlinx.android.synthetic.main.activity_manage_subject_acivity.*
+import kotlinx.android.synthetic.main.fragment_manage_subject.*
+import kotlinx.android.synthetic.main.fragment_manage_subject.view.*
+import kotlinx.android.synthetic.main.fragment_update.view.*
 
 
-class HomeFragment : Fragment() {
+class ManangeSubjectFragment : Fragment() {
     private lateinit var MainViewModelHomeFragment: MainViewModel
     lateinit var homeRecyclerviewAdapter: HomeRecyclerviewAdapter
 
@@ -29,15 +28,19 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_manage_subject, container, false)
 
-        view.floatingActionButton.setOnClickListener {
+        view.apply {
+            floatingActionButton.setOnClickListener {
 
-            findNavController().navigate(R.id.action_homeFragment_to_createSubjectFragment)
+                findNavController().navigate(R.id.action_manageSubjectFragment_to_createSubjectFragment)
 
-            Log.d("TAGG", "Create subject clicked")
-
+            }
+            backSpace_manage.setOnClickListener{
+                activity?.finish()
+            }
         }
+
 
 
         return view
@@ -45,9 +48,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        MainViewModelHomeFragment = (activity as MainActivity).MainViewModelHomeFragment
+        MainViewModelHomeFragment = (activity as ManageSubjectActivity).MainViewModelHomeFragment
         Log.d("TAGG", "RecyclerView created")
-        
+
         setupRecyclerView()
 
         MainViewModelHomeFragment.readAllData_subject.observe(viewLifecycleOwner, Observer {
@@ -66,6 +69,7 @@ class HomeFragment : Fragment() {
         }
 
     }
+
 
 
 }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/manageSubject_nav_graph"
+    app:startDestination="@id/manageSubject">
+
+    <fragment
+        android:id="@+id/manageSubject"
+        android:name="com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.ManangeSubjectFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_manageSubjectFragment_to_createSubjectFragment"
+            app:destination="@id/createSubjectFragment" />
+        <action
+            android:id="@+id/action_manageSubjectFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_manageSubject_to_createSubjectFragment"
+            app:destination="@id/createSubjectFragment" />
+        <action
+            android:id="@+id/action_manageSubject_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createSubjectFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.CreateSubjectFragment"
+        android:label="CreateSubjectFragment" >
+        <action
+            android:id="@+id/action_createSubjectFragment_to_manageSubjectFragment"
+            app:destination="@id/manageSubject" />
+        <argument
+            android:name="homeGrade"
+            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+        <action
+            android:id="@+id/action_createSubjectFragment_to_manageSubject"
+            app:destination="@id/manageSubject" />
+        <action
+            android:id="@+id/action_createSubjectFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.UpdateFragment"
+        android:label="UpdateFragment" >
+        <action
+            android:id="@+id/action_updateFragment_to_manageSubjectFragment"
+            app:destination="@id/manageSubject" />
+        <argument
+            android:name="currentSubject"
+            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+        <action
+            android:id="@+id/action_updateFragment_to_createSubjectFragment"
+            app:destination="@id/createSubjectFragment" />
+    </fragment>
+</navigation>

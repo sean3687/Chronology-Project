@@ -6,33 +6,39 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/AppTheme"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/homeAppbar"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/backSpace_manage"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:backgroundTint="@color/headline"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/home_toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:title="@string/HomeTitle"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
+        android:text="Manage Subject"
+        android:textSize="18dp"
+        android:textColor="@color/headline"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backSpace_manage"
+        app:layout_constraintStart_toEndOf="@+id/backSpace_manage"
+        app:layout_constraintTop_toTopOf="@+id/backSpace_manage" />
 
     <ScrollView
         android:id="@+id/scrollView2"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeAppbar"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/backSpace_manage">
 
         <LinearLayout
             android:layout_width="match_parent"

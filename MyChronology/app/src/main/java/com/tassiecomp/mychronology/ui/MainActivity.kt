@@ -1,24 +1,27 @@
 package com.tassiecomp.mychronology.ui
 
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.view.Gravity
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupWithNavController
-
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.databinding.ActivityMainBinding
+import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.temporal.TemporalQueries.chronology
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.nio.channels.AsynchronousFileChannel.open
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,36 +29,70 @@ class MainActivity : AppCompatActivity() {
     lateinit var MainViewModelHomeFragment: MainViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
-
+    private lateinit var toolbar: Toolbar
+    lateinit var toggle: ActionBarDrawerToggle
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
+        CalendarProgress()
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_host_fragment
-        ) as NavHostFragment
-        navController = navHostFragment.navController
+        //Load DailyCheck Fragment
+        GlobalScope.launch() {
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_frame_layout, DailyCheckFragment())
+                .commit()
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        bottomNavigationView.setupWithNavController(navController)
+        }
 
-        // Setup the ActionBar with navController and 3 top level destinations
-        appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.Chronology, R.id.manageSubject,  R.id.dailyCheck,R.id.weekReport)
-        )
+        //top app bar
+        topAppBar.setNavigationOnClickListener {
+            //open navigation drawer
+            drawerLayout.openDrawer(GravityCompat.START)
+
+        }
+
+        //navigation drawer
+
+
+        toggle = ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.bringToFront()
+
+
+        val newIntent = Intent(this@MainActivity, ManageSubjectActivity::class.java)
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.drawer_manageSubject -> {
+                    startActivity(newIntent)
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+
+
+
+            }
+            true
+        }
+
+
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+    fun CalendarProgress() {
+        progress_circular.visibility = View.VISIBLE
+        progress_background.visibility = View.VISIBLE
+        Handler().postDelayed({
+            progress_circular.visibility = View.INVISIBLE
+            progress_background.visibility = View.INVISIBLE
+        }, 3000)
     }
-
 }
-
 
 
 

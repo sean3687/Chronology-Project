@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.models.HomeGrade
-import com.tassiecomp.mychronology.ui.fragments.HomeFragments.HomeFragmentDirections
+import com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.ManangeSubjectFragmentDirections
 import kotlinx.android.synthetic.main.main_home_cardview.view.*
 
 class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {
@@ -53,9 +53,14 @@ class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.Vi
             ))
 
             subject_iconLetter.setOnClickListener{
-                val action = HomeFragmentDirections.actionHomeFragmentToUpdateFragment(todayGrade)
+                val action = ManangeSubjectFragmentDirections.actionManageSubjectFragmentToUpdateFragment(todayGrade)
                 findNavController().navigate(action)
             }
+            item_subject.setOnClickListener{
+                val action = ManangeSubjectFragmentDirections.actionManageSubjectFragmentToUpdateFragment(todayGrade)
+                findNavController().navigate(action)
+            }
+
 
         }
     }
