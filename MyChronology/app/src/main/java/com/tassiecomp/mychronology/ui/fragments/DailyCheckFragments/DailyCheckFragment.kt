@@ -82,19 +82,22 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
         binding = FragmentDailyCheckBinding.bind(view)
         binding.dailyCheckRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.HORIZONTAL))
         }
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
+        val currentDate = LocalDate.now()
         Log.d("TAGG", "current month: $currentMonth")
 
         //range of calendar
         binding.calendarView.apply {
             setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
             scrollToMonth(currentMonth)
+            scrollToDate(today)
         }
+
 
         if (savedInstanceState == null) {
             binding.calendarView.post {
@@ -116,6 +119,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
             }
         }
 
+        //when day clicked
         binding.calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
             override fun bind(container: DayViewContainer, day: CalendarDay) {
@@ -155,7 +159,8 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         }
 
         binding.calendarView.monthScrollListener = {
-//            home_toolbar.title =
+            binding.YearText.text = it.yearMonth.year.toString()
+            binding.MonthText.text = titleSameYearFormatter.format(it.yearMonth)
                 if (it.year == today.year) {
                 titleSameYearFormatter.format(it.yearMonth)
             } else {
@@ -179,17 +184,10 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                 if (container.legendLayout.tag == null) {
                     container.legendLayout.tag = month.yearMonth
                     container.legendLayout.children.map { it as TextView }
-                        .forEachIndexed { index, tv ->
-                            tv.text = daysOfWeek[index].name.first().toString()
-                            tv.setTextColorRes(R.color.black)
-                        }
+
                 }
             }
         }
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
     }
 
     private fun selectDate(date: LocalDate) {
@@ -207,7 +205,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
         eventsAdapter.apply { //viewmodel로 observe되면 실행되게
 
         }
-        binding.SelectedDateText.text = selectionFormatter.format(date)
+
 
     }
 
