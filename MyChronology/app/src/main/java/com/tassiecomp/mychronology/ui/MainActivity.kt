@@ -17,11 +17,14 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import com.google.android.material.navigation.NavigationView
 import com.tassiecomp.mychronology.R
+import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
 import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_daily_check.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.nio.channels.AsynchronousFileChannel.open
+import java.time.LocalDate
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var toolbar: Toolbar
     lateinit var toggle: ActionBarDrawerToggle
+    val currentDate = LocalDate.now()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +51,8 @@ class MainActivity : AppCompatActivity() {
             getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_frame_layout, DailyCheckFragment())
                 .commit()
+
+
 
         }
 
@@ -91,6 +97,7 @@ class MainActivity : AppCompatActivity() {
             progress_circular.visibility = View.INVISIBLE
             progress_background.visibility = View.INVISIBLE
         }, 3000)
+
     }
 }
 

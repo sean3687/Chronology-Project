@@ -1,5 +1,6 @@
 package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,37 +8,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.view.children
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner
+import com.kizitonwose.calendarview.model.InDateStyle
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.kizitonwose.calendarview.utils.next
+import com.kizitonwose.calendarview.utils.yearMonth
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.adapters.DailyRecycleviewAdapter
 import com.tassiecomp.mychronology.adapters.Event
 import com.tassiecomp.mychronology.databinding.CalendarDayLayoutBinding
-import com.tassiecomp.mychronology.databinding.CalendarHeaderLayoutBinding
 import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_daily_check.*
-import kotlinx.android.synthetic.main.fragment_daily_check.view.*
+import kotlinx.android.synthetic.main.calendar_day_layout.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
-    var selectedDate: LocalDate? = null
+     private var selectedDate: LocalDate? = null
     val today = LocalDate.now()
     val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
     val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
@@ -46,65 +48,37 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
 
 
-    lateinit var binding: FragmentDailyCheckBinding
-
-    private val eventsAdapter = DailyRecycleviewAdapter {
-        AlertDialog.Builder(requireContext())
-            .setMessage("delete?")
-            .setPositiveButton("delete") { _, _ ->
-                deleteEvent(it)
-            }
-            .setNegativeButton("close", null)
-            .show()
-    }
-
-
-    private fun deleteEvent(event: Event) {
-        Log.d("tagg", "message")
-        //delete  event from database
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // make changes to view and its children here
-        val view = inflater.inflate(R.layout.fragment_daily_check, container, false)
-
-
-        return view
-    }
+    private lateinit var binding: FragmentDailyCheckBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
         binding = FragmentDailyCheckBinding.bind(view)
-        binding.dailyCheckRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.HORIZONTAL))
-        }
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
-        val currentDate = LocalDate.now()
         Log.d("TAGG", "current month: $currentMonth")
 
         //range of calendar
-        binding.calendarView.apply {
-            setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
-            scrollToMonth(currentMonth)
-            scrollToDate(today)
+
+        binding.dailyCheckRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.HORIZONTAL))
+        }
+        //legend layout
+
+
+        class MonthViewContainer(view: View) : ViewContainer(view) {
         }
 
+        binding.calendarView.monthHeaderBinder = object :
+            MonthHeaderFooterBinder<MonthViewContainer> {
+            override fun create(view: View) = MonthViewContainer(view)
+            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
 
-        if (savedInstanceState == null) {
-            binding.calendarView.post {
-                // Show today's events initially.
-                selectDate(today)
             }
         }
+
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             lateinit var day: CalendarDay // Will be set when this container is bound.
@@ -131,13 +105,14 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     textView.makeVisible()
-                    when (day.date) {
+                    when(day.date) {
                         today -> {
                             textView.setTextColorRes(R.color.white)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
                             dotView.makeInVisible()
+
                         }
-                        selectedDate -> {
+                        selectedDate-> {
                             textView.setTextColorRes(R.color.lightBlue)
                             textView.setBackgroundResource(R.drawable.calendar_selected_bg)
                             dotView.makeInVisible()
@@ -145,71 +120,132 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                         else -> {
                             textView.setTextColorRes(R.color.black)
                             textView.background = null
-                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+                            dotView.isVisible = events [day.date].orEmpty().isNotEmpty()
                         }
                     }
                 } else {
-                    textView.makeInVisible()
+                    textView.setTextColorRes(R.color.black)
                     dotView.makeInVisible()
+//                    textView.background = null
+
+
                 }
 
             }
 
 
         }
+        binding.calendarView.apply {
 
+            setup(currentMonth.minusMonths(10), currentMonth.plusMonths(10), daysOfWeek.first())
+            scrollToMonth(currentMonth)
+
+        }
+
+        //scroll listener
         binding.calendarView.monthScrollListener = {
-            binding.YearText.text = it.yearMonth.year.toString()
-            binding.MonthText.text = titleSameYearFormatter.format(it.yearMonth)
-                if (it.year == today.year) {
-                titleSameYearFormatter.format(it.yearMonth)
+            if (binding.calendarView.maxRowCount == 6) {
+                binding.YearText.text = it.yearMonth.year.toString()
+                binding.MonthText.text = titleSameYearFormatter.format(it.yearMonth)
             } else {
-                titleFormatter.format(it.yearMonth)
-            }
-
-            // Select the first day of the month when
-            // we scroll to a new month.
-            selectDate(it.yearMonth.atDay(1))
-        }
-
-        class MonthViewContainer(view: View) : ViewContainer(view) {
-            val legendLayout = CalendarHeaderLayoutBinding.bind(view).legendLayout.root
-        }
-
-        binding.calendarView.monthHeaderBinder = object :
-            MonthHeaderFooterBinder<MonthViewContainer> {
-            override fun create(view: View) = MonthViewContainer(view)
-            override fun bind(container: MonthViewContainer, month: CalendarMonth) {
-                // Setup each header day text if we have not done that already.
-                if (container.legendLayout.tag == null) {
-                    container.legendLayout.tag = month.yearMonth
-                    container.legendLayout.children.map { it as TextView }
-
+                val firstDate = it.weekDays.first().first().date
+                val lastDate = it.weekDays.last().last().date
+                if (firstDate.yearMonth == lastDate.yearMonth) {
+                    binding.YearText.text = firstDate.yearMonth.year.toString()
+                    binding.MonthText.text = titleSameYearFormatter.format(firstDate)
+                } else {
+                    binding.MonthText.text =
+                        "${titleSameYearFormatter.format(firstDate)} - ${titleSameYearFormatter.format(lastDate)}"
+                    if (firstDate.year == lastDate.year) {
+                        binding.YearText.text = firstDate.yearMonth.year.toString()
+                    } else {
+                        binding.YearText.text = "${firstDate.yearMonth.year} - ${lastDate.yearMonth.year}"
+                    }
                 }
             }
         }
+
+        //weekModeCheckBox
+        binding.WeekModeCheckbox.setOnCheckedChangeListener { _, monthToWeek ->
+            val firstDate = binding.calendarView.findFirstVisibleDay()?.date
+                ?: return@setOnCheckedChangeListener
+            val lastDate =
+                binding.calendarView.findLastVisibleDay()?.date ?: return@setOnCheckedChangeListener
+
+            val oneWeekHeight = binding.calendarView.daySize.height
+            val oneMonthHeight = oneWeekHeight * 6
+
+            val oldHeight = if (monthToWeek) oneMonthHeight else oneWeekHeight
+            val newHeight = if (monthToWeek) oneWeekHeight else oneMonthHeight
+
+            val animator = ValueAnimator.ofInt(oldHeight, newHeight)
+            animator.addUpdateListener { animator ->
+                binding.calendarView.updateLayoutParams {
+                    height = animator.animatedValue as Int
+                }
+
+            }
+            animator.doOnStart {
+                if (!monthToWeek) {
+                    binding.calendarView.updateMonthConfiguration(
+                        inDateStyle = InDateStyle.ALL_MONTHS,
+                        maxRowCount = 6,
+                        hasBoundaries = true
+                    )
+                }
+            }
+            animator.doOnEnd {
+                if (monthToWeek) {
+                    binding.calendarView.updateMonthConfiguration(
+                        inDateStyle = InDateStyle.FIRST_MONTH,
+                        maxRowCount = 1,
+                        hasBoundaries = false
+                    )
+                }
+                if (monthToWeek) {
+                    // We want the first visible day to remain
+                    // visible when we change to week mode.
+                    binding.calendarView.scrollToDate(today)
+                } else {
+                    // When changing to month mode, we choose current
+                    // month if it is the only one in the current frame.
+                    // if we have multiple months in one frame, we prefer
+                    // the second one unless it's an outDate in the last index.
+                    if (firstDate.yearMonth == lastDate.yearMonth) {
+                        binding.calendarView.scrollToMonth(firstDate.yearMonth)
+                    } else {
+                        // We compare the next with the last month on the calendar so we don't go over.
+                        binding.calendarView.scrollToMonth(
+                            minOf(
+                                firstDate.yearMonth.next, currentMonth.plusMonths(10)
+                            )
+                        )
+                    }
+                }
+            }
+            animator.duration = 250
+            animator.start()
+
+        }
+
+
     }
 
     private fun selectDate(date: LocalDate) {
 
-        if (selectedDate != date) {
-            val oldDate = selectedDate
-            selectedDate = date
-            oldDate?.let { binding.calendarView.notifyDateChanged(it) }
-            binding.calendarView.notifyDateChanged(date)
-            updateAdapterForDate(date)
-        }
+//        if (selectedDate != date) {
+//            val oldDate = selectedDate
+//            selectedDate = date
+//            oldDate?.let { binding.calendarView.notifyDateChanged(it) }
+//            binding.calendarView.notifyDateChanged(date)
+//            updateAdapterForDate(date)
+//        }
     }
 
     private fun updateAdapterForDate(date: LocalDate) {
-        eventsAdapter.apply { //viewmodel로 observe되면 실행되게
-
-        }
 
 
     }
-
-
 
 
 }
