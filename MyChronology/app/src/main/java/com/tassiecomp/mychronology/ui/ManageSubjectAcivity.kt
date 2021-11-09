@@ -1,18 +1,13 @@
 package com.tassiecomp.mychronology.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.CreateSubjectFragment
-import com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.UpdateFragment
-import kotlinx.android.synthetic.main.activity_manage_subject_acivity.*
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 
 class ManageSubjectActivity : AppCompatActivity() {
     lateinit var MainViewModelHomeFragment: MainViewModel

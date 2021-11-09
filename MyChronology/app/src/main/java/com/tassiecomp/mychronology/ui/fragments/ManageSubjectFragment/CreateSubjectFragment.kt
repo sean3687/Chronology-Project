@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
 
-import com.tassiecomp.mychronology.models.HomeGrade
-import com.tassiecomp.mychronology.ui.MainViewModel
+import com.tassiecomp.mychronology.models.SubjectItem
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 import dev.sasikanth.colorsheet.ColorSheet
 import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.create_subject_dialog.*
@@ -105,7 +105,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
                 Log.d("TAGGG",color)
             }
 
-            val subject = HomeGrade(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color,created)
+            val subject = SubjectItem(id, title,description,weighing,Integer.parseInt(max.toString()),Integer.parseInt(min.toString()),color,created)
             mainViewModel.addSubject(subject)
 //            Toast.makeText(App.instance, "Saved", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_createSubjectFragment_to_manageSubjectFragment)
@@ -129,6 +129,7 @@ class CreateSubjectFragment : Fragment(R.layout.create_subject_dialog) {
             displayColor.backgroundTintList = ColorStateList.valueOf(color)
             colorPicker_button.text = ColorSheetUtils.colorToHex(color)
     }
+
 
 
 }

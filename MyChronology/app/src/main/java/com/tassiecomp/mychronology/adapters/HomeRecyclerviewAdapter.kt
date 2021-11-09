@@ -10,20 +10,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.models.HomeGrade
+import com.tassiecomp.mychronology.models.SubjectItem
 import com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.ManangeSubjectFragmentDirections
 import kotlinx.android.synthetic.main.main_home_cardview.view.*
 
-class HomeRecyclerviewAdapter: ListAdapter<HomeGrade, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {
+    class HomeRecyclerviewAdapter: ListAdapter<SubjectItem, HomeRecyclerviewAdapter.ViewHolder>(differCallback()) {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view)
 
-    class differCallback:DiffUtil.ItemCallback<HomeGrade>(){
-        override fun areItemsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
+    class differCallback:DiffUtil.ItemCallback<SubjectItem>(){
+        override fun areItemsTheSame(oldItem: SubjectItem, newItem: SubjectItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: HomeGrade, newItem: HomeGrade): Boolean {
+        override fun areContentsTheSame(oldItem: SubjectItem, newItem: SubjectItem): Boolean {
             return oldItem == newItem
         }
 

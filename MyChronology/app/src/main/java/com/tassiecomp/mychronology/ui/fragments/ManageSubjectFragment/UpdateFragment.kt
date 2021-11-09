@@ -17,12 +17,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tassiecomp.mychronology.App
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.models.HomeGrade
-import com.tassiecomp.mychronology.ui.MainViewModel
+import com.tassiecomp.mychronology.models.SubjectItem
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 import dev.sasikanth.colorsheet.ColorSheet
 import dev.sasikanth.colorsheet.utils.ColorSheetUtils
 import kotlinx.android.synthetic.main.create_subject_dialog.*
-import kotlinx.android.synthetic.main.create_subject_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 import kotlinx.android.synthetic.main.fragment_update.view.Update_Weighing
 import kotlinx.android.synthetic.main.fragment_update.view.Update_cardTitle
@@ -109,7 +108,7 @@ class UpdateFragment : Fragment(R.layout.fragment_update) {
 
             }
 
-            val updatedSubject = HomeGrade(
+            val updatedSubject = SubjectItem(
                 id,
                 title,
                 description,

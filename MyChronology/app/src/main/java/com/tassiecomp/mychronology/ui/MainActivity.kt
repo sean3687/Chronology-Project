@@ -4,9 +4,6 @@ package com.tassiecomp.mychronology.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,15 +12,13 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
-import com.google.android.material.navigation.NavigationView
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
 import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_daily_check.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.nio.channels.AsynchronousFileChannel.open
 import java.time.LocalDate
 
 
@@ -52,8 +47,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.main_frame_layout, DailyCheckFragment())
                 .commit()
 
-
-
         }
 
         //top app bar
@@ -64,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         //navigation drawer
-
 
         toggle = ActionBarDrawerToggle(this, drawerLayout,R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -80,12 +72,9 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
 
-
-
             }
             true
         }
-
 
 
     }

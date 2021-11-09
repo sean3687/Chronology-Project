@@ -29,8 +29,8 @@
             android:id="@+id/action_createSubjectFragment_to_manageSubjectFragment"
             app:destination="@id/manageSubject" />
         <argument
-            android:name="homeGrade"
-            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+            android:name="subjectItem"
+            app:argType="com.tassiecomp.mychronology.models.SubjectItem" />
         <action
             android:id="@+id/action_createSubjectFragment_to_manageSubject"
             app:destination="@id/manageSubject" />
@@ -47,7 +47,7 @@
             app:destination="@id/manageSubject" />
         <argument
             android:name="currentSubject"
-            app:argType="com.tassiecomp.mychronology.models.HomeGrade" />
+            app:argType="com.tassiecomp.mychronology.models.SubjectItem" />
         <action
             android:id="@+id/action_updateFragment_to_createSubjectFragment"
             app:destination="@id/createSubjectFragment" />

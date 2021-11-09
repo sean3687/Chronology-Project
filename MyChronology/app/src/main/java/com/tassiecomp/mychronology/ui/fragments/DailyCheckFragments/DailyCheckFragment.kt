@@ -3,15 +3,9 @@ package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
-import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -27,10 +21,18 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.yearMonth
 import com.tassiecomp.mychronology.R
-import com.tassiecomp.mychronology.adapters.Event
+import com.tassiecomp.mychronology.adapters.DailyCheckTodoAdapter
+import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
 import com.tassiecomp.mychronology.databinding.CalendarDayLayoutBinding
 import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
+import com.tassiecomp.mychronology.ui.MainActivity
+import com.tassiecomp.mychronology.ui.ManageSubjectActivity
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.calendar_day_layout.*
+import kotlinx.android.synthetic.main.fragment_daily_check.*
+import kotlinx.android.synthetic.main.fragment_manage_subject.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -39,34 +41,26 @@ import java.util.*
 
 class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
+
      private var selectedDate: LocalDate? = null
     val today = LocalDate.now()
     val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
-    val titleFormatter = DateTimeFormatter.ofPattern("MMM yyyy")
-    val selectionFormatter = DateTimeFormatter.ofPattern("yyyy MMM d")
-    private val events = mutableMapOf<LocalDate, List<Event>>()
 
-
-
+    val selectedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    private lateinit var MainViewModelHomeFragment: MainViewModel
     private lateinit var binding: FragmentDailyCheckBinding
+    lateinit var DailyCheckTodoAdapter: DailyCheckTodoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding = FragmentDailyCheckBinding.bind(view)
+        MainViewModelHomeFragment = (activity as MainActivity).MainViewModelHomeFragment
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
         Log.d("TAGG", "current month: $currentMonth")
 
-        //range of calendar
-
-        binding.dailyCheckRecyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.HORIZONTAL))
-        }
-        //legend layout
-
+        setupTodoRecyclerView()
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
         }
@@ -120,7 +114,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                         else -> {
                             textView.setTextColorRes(R.color.black)
                             textView.background = null
-                            dotView.isVisible = events [day.date].orEmpty().isNotEmpty()
+//                            dotView.isVisible = events [day.date].orEmpty().isNotEmpty()
                         }
                     }
                 } else {
@@ -228,24 +222,48 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
         }
 
+        binding.addTodoList.setOnClickListener{
+
+        }
+
+
 
     }
+
+    fun setupTodoRecyclerView(){
+        DailyCheckTodoAdapter = DailyCheckTodoAdapter()
+        daily_check_recyclerView.apply {
+            adapter = DailyCheckTodoAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
 
     private fun selectDate(date: LocalDate) {
+        val createdDate:String = titleSameYearFormatter.format(date)
 
-//        if (selectedDate != date) {
-//            val oldDate = selectedDate
-//            selectedDate = date
-//            oldDate?.let { binding.calendarView.notifyDateChanged(it) }
-//            binding.calendarView.notifyDateChanged(date)
-//            updateAdapterForDate(date)
-//        }
+        if (selectedDate != date) {
+            updateAdapterForDate(createdDate)
+
+        }
     }
 
-    private fun updateAdapterForDate(date: LocalDate) {
-
+    private fun updateAdapterForDate(createdDate:String) {
+        MainViewModelHomeFragment.selectedDateData(createdDate).observe(viewLifecycleOwner, androidx.lifecycle.Observer{
+            (daily_check_recyclerView.adapter as DailyCheckTodoAdapter).submitList(it)
+        })
 
     }
+
+    private fun updateDot(date:LocalDate) {
+        val day:String = titleSameYearFormatter.format(date)
+        MainViewModelHomeFragment.selectedDateData(day).observe(viewLifecycleOwner, ){
+            var count = it.size
+            countView.text = count.toString()
+        }
+
+    }
+
 
 
 }

@@ -9,8 +9,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity(
     tableName ="homeGrades"
 )
-//dfasdf
-data class HomeGrade(
+//
+data class SubjectItem(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
     var title: String,

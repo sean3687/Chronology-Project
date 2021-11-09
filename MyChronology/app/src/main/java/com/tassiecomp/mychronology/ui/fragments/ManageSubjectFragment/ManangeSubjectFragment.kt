@@ -10,12 +10,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.HomeRecyclerviewAdapter
-import com.tassiecomp.mychronology.ui.MainViewModel
+import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 import com.tassiecomp.mychronology.ui.ManageSubjectActivity
-import kotlinx.android.synthetic.main.activity_manage_subject_acivity.*
 import kotlinx.android.synthetic.main.fragment_manage_subject.*
 import kotlinx.android.synthetic.main.fragment_manage_subject.view.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 
 class ManangeSubjectFragment : Fragment() {
