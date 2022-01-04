@@ -34,9 +34,11 @@ class ManangeSubjectFragment : Fragment() {
                 findNavController().navigate(R.id.action_manageSubjectFragment_to_createSubjectFragment)
 
             }
-            backSpace_manage.setOnClickListener{
+            backSpace_select.setOnClickListener{
                 activity?.finish()
             }
+
+
         }
 
 
@@ -50,6 +52,7 @@ class ManangeSubjectFragment : Fragment() {
         Log.d("TAGG", "RecyclerView created")
 
         setupRecyclerView()
+
 
         MainViewModelHomeFragment.readAllData_subject.observe(viewLifecycleOwner, Observer {
             //객체를 생성만하고 recyclerView.adapter 에 할당하는 코드가 없다는 뜻이에여. 옵저버 내부의 코드를 (recyclerView.adapter as HomeRecyclerviewAdapter).submitList(it) 으로 고치면 될 것 같네여
@@ -67,6 +70,7 @@ class ManangeSubjectFragment : Fragment() {
         }
 
     }
+
 
 
 

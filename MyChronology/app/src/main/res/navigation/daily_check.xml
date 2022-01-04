@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dailyCheck"
     app:startDestination="@id/dailyCheckFragment">
 
     <fragment
         android:id="@+id/dailyCheckFragment"
         android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment"
-        android:label="DailyCheckFragment" />
+        android:label="DailyCheckFragment" >
+        <action
+            android:id="@+id/action_dailyCheckFragment_to_selectSubjectFragment"
+            app:destination="@id/selectSubjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectSubjectFragment"
+        android:name="com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.SelectSubjectFragment"
+        android:label="fragment_select_subject"
+        tools:layout="@layout/fragment_select_subject" >
+        <action
+            android:id="@+id/action_selectSubjectFragment_to_dailyCheckFragment"
+            app:destination="@id/dailyCheckFragment" />
+        <argument
+            android:name="SubjectItem"
+            app:argType="com.tassiecomp.mychronology.models.SubjectItem" />
+    </fragment>
+
 </navigation>

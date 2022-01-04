@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/dailyCheck">
-    <include app:graph="@navigation/daily_check"/>
+    <fragment
+        android:id="@+id/manageSubject"
+        android:name="com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.ManangeSubjectFragment"
+        android:label="HomeFragment" >
+
+    </fragment>
 
 </navigation>

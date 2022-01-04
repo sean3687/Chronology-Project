@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.tassiecomp.mychronology.db.GradeDao
 import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.SubjectItem
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,10 +16,14 @@ class MainRepository(
 ) {
     val readAllData_subject: LiveData<List<SubjectItem>> = gradeDao.readAllData_subject()
     val readAllData_daily: LiveData<List<DailyGrade>> = gradeDao.readAllData_daily()
+    val getSubjectTitleList: LiveData<List<String>> = gradeDao.getSubjectTitleList()
+    val getSubjectColorList: LiveData<List<String>> = gradeDao.getSubjectColorList()
 
     fun searchSelected(selectedDate:String?): LiveData<List<DailyGrade>>{
         return gradeDao.searchSelectedDateData(selectedDate)
     }
+
+
 
     suspend fun addSubject(subjectItem: SubjectItem) {
         CoroutineScope(Dispatchers.IO).launch {

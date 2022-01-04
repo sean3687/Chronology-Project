@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.SubjectItem
-import java.time.LocalDate
+
 
 
 @Dao
@@ -17,6 +17,12 @@ interface GradeDao {
 
     @Query("SELECT dailyGrades.* FROM dailyGrades Join dailyFts ON(dailyGrades.createdDate = dailyFts.createdDate) WHERE dailyFts MATCH :query")
     fun searchSelectedDateData(query:String? ): LiveData<List<DailyGrade>>
+
+    @Query("SELECT subject_title FROM homeGrades ")
+    fun getSubjectTitleList(): LiveData<List<String>>
+
+    @Query("SELECT subject_color FROM homeGrades")
+    fun getSubjectColorList(): LiveData<List<String>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addSubject(subjectItem:SubjectItem)

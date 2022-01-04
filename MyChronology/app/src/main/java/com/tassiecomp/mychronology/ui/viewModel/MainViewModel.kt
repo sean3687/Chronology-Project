@@ -19,6 +19,8 @@ class MainViewModel(
 
     val readAllData_subject: LiveData<List<SubjectItem>>
     val readAllData_daily: LiveData<List<DailyGrade>>
+    val getSubjectTitleList: LiveData<List<String>>
+    val getSubjectColorList: LiveData<List<String>>
 
     private var repository: MainRepository
 
@@ -27,7 +29,8 @@ class MainViewModel(
         repository = MainRepository(gradeDao)
         readAllData_subject = repository.readAllData_subject
         readAllData_daily = repository.readAllData_daily
-
+        getSubjectTitleList = repository.getSubjectTitleList
+        getSubjectColorList = repository.getSubjectColorList
 
     }
 

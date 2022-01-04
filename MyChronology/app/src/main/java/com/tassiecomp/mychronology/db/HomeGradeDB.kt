@@ -8,6 +8,7 @@ import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.DailyGradeFTS
 import com.tassiecomp.mychronology.models.SubjectItem
 
+
 //push
 @Database(
     entities = [SubjectItem::class, DailyGrade::class, DailyGradeFTS::class], version = 1
