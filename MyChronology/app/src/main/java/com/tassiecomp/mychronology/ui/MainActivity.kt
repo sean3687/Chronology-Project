@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment
@@ -42,12 +43,18 @@ class MainActivity : AppCompatActivity() {
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
 
         //Load DailyCheck Fragment
-        GlobalScope.launch() {
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_frame_layout, DailyCheckFragment())
-                .commit()
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.Main_NavHostFragment
+        ) as NavHostFragment
+        navController = navHostFragment.navController
 
-        }
+//
+//        GlobalScope.launch() {
+//            getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.Main_NavHostFragment, DailyCheckFragment())
+//                .commit()
+//
+//        }
 
         //top app bar
         topAppBar.setNavigationOnClickListener {

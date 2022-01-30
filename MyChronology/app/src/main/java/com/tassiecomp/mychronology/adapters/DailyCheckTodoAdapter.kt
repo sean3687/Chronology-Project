@@ -5,15 +5,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.models.DailyGrade
-import com.tassiecomp.mychronology.models.SubjectItem
-import com.tassiecomp.mychronology.ui.fragments.ManageSubjectFragment.ManangeSubjectFragmentDirections
-import kotlinx.android.synthetic.main.main_home_cardview.view.*
 import kotlinx.android.synthetic.main.main_subjectitemlist_child_item.view.*
 
 class DailyCheckTodoAdapter: ListAdapter<DailyGrade, DailyCheckTodoAdapter.ViewHolder>(differCallback()) {

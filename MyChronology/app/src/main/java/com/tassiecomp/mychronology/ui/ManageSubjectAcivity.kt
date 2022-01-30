@@ -20,11 +20,6 @@ class ManageSubjectActivity : AppCompatActivity() {
 
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        //appBar configuration
-
-
-
-
         //navcontroller
         val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.ManageSubject_NavHostFragment
@@ -35,8 +30,6 @@ class ManageSubjectActivity : AppCompatActivity() {
 //        findViewById<Toolbar>(R.id.manageSubject_toolbar).setupWithNavController(navController, appBarConfiguration)
 //
 
-
-//        setupActionBarWithNavController(navController, appBarConfiguration)
 
 //        manageSubject_toolbar.setNavigationOnClickListener {
 //            finish()

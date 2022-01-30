@@ -34,7 +34,7 @@ class ManangeSubjectFragment : Fragment() {
                 findNavController().navigate(R.id.action_manageSubjectFragment_to_createSubjectFragment)
 
             }
-            backSpace_select.setOnClickListener{
+            backSpace_manage.setOnClickListener{
                 activity?.finish()
             }
 

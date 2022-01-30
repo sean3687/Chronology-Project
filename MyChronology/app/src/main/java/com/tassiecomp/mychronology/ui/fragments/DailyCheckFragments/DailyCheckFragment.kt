@@ -1,7 +1,6 @@
 package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,19 +31,20 @@ import kotlinx.android.synthetic.main.calendar_day_layout.*
 import kotlinx.android.synthetic.main.fragment_daily_check.*
 import kotlinx.android.synthetic.main.fragment_daily_check.view.*
 import kotlinx.android.synthetic.main.fragment_manage_subject.*
+import kotlinx.android.synthetic.main.fragment_update.view.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
+class DailyCheckFragment : Fragment() {
 
 
     private var selectedDate: LocalDate? = null
     val today = LocalDate.now()
     val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
-    val selectedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+//    val selectedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private lateinit var MainViewModelHomeFragment: MainViewModel
     private lateinit var binding: FragmentDailyCheckBinding
     lateinit var DailyCheckTodoAdapter: DailyCheckTodoAdapter
@@ -56,10 +56,14 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_daily_check, container, false)
 
-        view.selectSubject_background.setOnClickListener {
-            Log.d("logg", "selectSubject_background clicked")
+        view.apply {
+
+//          selectSubject_background.text =
 
         }
+
+
+
 
 
 
@@ -113,33 +117,33 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
                 textView.text = day.date.dayOfMonth.toString()
 
-                if (day.owner == DayOwner.THIS_MONTH) {
-                    textView.makeVisible()
-                    when (day.date) {
-                        today -> {
-                            textView.setTextColorRes(R.color.white)
-                            textView.setBackgroundResource(R.drawable.calendar_today_bg)
-                            dotView.makeInVisible()
-
-                        }
-                        selectedDate -> {
-                            textView.setTextColorRes(R.color.lightBlue)
-                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
-                            dotView.makeInVisible()
-                        }
-                        else -> {
-                            textView.setTextColorRes(R.color.black)
-                            textView.background = null
-//                            dotView.isVisible = events [day.date].orEmpty().isNotEmpty()
-                        }
-                    }
-                } else {
-                    textView.setTextColorRes(R.color.black)
-                    dotView.makeInVisible()
-//                    textView.background = null
-
-
-                }
+//                if (day.owner == DayOwner.THIS_MONTH) {
+//                    textView.makeVisible()
+//                    when (day.date) {
+//                        today -> {
+//                            textView.setTextColorRes(R.color.white)
+//                            textView.setBackgroundResource(R.drawable.calendar_today_bg)
+//                            dotView.makeInVisible()
+//
+//                        }
+//                        selectedDate -> {
+//                            textView.setTextColorRes(R.color.lightBlue)
+//                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
+//                            dotView.makeInVisible()
+//                        }
+//                        else -> {
+//                            textView.setTextColorRes(R.color.black)
+//                            textView.background = null
+////                            dotView.isVisible = events [day.date].orEmpty().isNotEmpty()
+//                        }
+//                    }
+//                } else {
+//                    textView.setTextColorRes(R.color.black)
+//                    dotView.makeInVisible()
+////                    textView.background = null
+//
+//
+//                }
 
             }
 
@@ -227,7 +231,7 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
                     // if we have multiple months in one frame, we prefer
                     // the second one unless it's an outDate in the last index.
                     if (firstDate.yearMonth == lastDate.yearMonth) {
-                        binding.calendarView.scrollToMonth(firstDate.yearMonth)
+                        binding.calendarView.scrollToMonth(today.yearMonth)
                     } else {
                         // We compare the next with the last month on the calendar so we don't go over.
                         binding.calendarView.scrollToMonth(
@@ -245,20 +249,13 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
 
 
         selectSubject_text.setOnClickListener {
-            Log.d("logg", "selectSubject_text clicked")
-            findNavController().navigate(R.id.action_dailyCheckFragment_to_selectSubjectFragment)
-
+           showSubjectDialog()
 
         }
-
-        MainViewModelHomeFragment.getSubjectTitleList.observe(viewLifecycleOwner) {
-
-
-
-        }
-
 
     }
+
+
 
 
     fun setupTodoRecyclerView() {
@@ -296,10 +293,27 @@ class DailyCheckFragment : Fragment(R.layout.fragment_daily_check) {
     }
 
     private fun showSubjectDialog(){
-
+        findNavController().navigate(
+            R.id.action_dailyCheckFragment_to_selectSubjectPopupDialog)
 
 
     }
+
+    fun updateDailyCheckSubject(){
+//        Log.d("LOGG", "method from daily check fragment called")
+//        selectSubject_text.text = args.selectSubject.title[0].toString()
+//        selectSubject_background.backgroundTintList = ColorStateList.valueOf(
+//            Color.parseColor(
+//            args.selectSubject.color
+//        ))
+
+    }
+
+    fun dismissSubjectDialog(){
+        val myDialog = SelectSubjectPopupDialog()
+
+    }
+
 }
 
 

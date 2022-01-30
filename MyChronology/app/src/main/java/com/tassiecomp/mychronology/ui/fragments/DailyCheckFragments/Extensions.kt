@@ -1,6 +1,7 @@
 package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 
 import android.content.Context
+import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigator
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
 
@@ -64,4 +69,26 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
         daysOfWeek = rhs + lhs
     }
     return daysOfWeek
+}
+
+
+fun NavController.navigateSafe(
+    @IdRes resId: Int,
+    args: Bundle? = null,
+    navOptions: NavOptions? = null,
+    navExtras: Navigator.Extras? = null
+) {
+    val action = currentDestination?.getAction(resId) ?: graph.getAction(resId)
+    // 현재 fragment의 id와 이동할 fragment의 id가 다르면 화면이동 실행 (같다는 건, 이미 이동이 된 후이기 때문)
+    if (action != null && currentDestination?.id != action.destinationId) {
+        navigate(resId, args, navOptions, navExtras)
+    }
+}
+
+// 이건 navigateUp() 메소드 대신에 사용
+fun NavController.navigateSafeUp(@IdRes currentFragmentResId: Int) {
+    // 현재 fragment 와, 인자로 받은 fragmnet의 id가 같으면 navigateUp() 실행
+    if (currentDestination?.id == currentFragmentResId) {
+        navigateUp()
+    }
 }

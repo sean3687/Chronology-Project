@@ -41,15 +41,18 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <FrameLayout
-            android:id="@+id/main_frame_layout"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/Main_NavHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/daily_check_navgraph"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
-        </FrameLayout>
+        </androidx.fragment.app.FragmentContainerView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/progress_background"

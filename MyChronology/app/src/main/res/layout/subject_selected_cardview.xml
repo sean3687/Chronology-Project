@@ -1,58 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <TextView
-        android:id="@+id/subject_iconBackground"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
         android:background="@drawable/home_icon_shape"
-        android:backgroundTint="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="#26000000"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/subject_iconLetter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="K"
-        android:textColor="@color/white"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/subject_iconBackground"
-        app:layout_constraintStart_toStartOf="@+id/subject_iconBackground"
-        app:layout_constraintTop_toTopOf="@+id/subject_iconBackground" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/subject_linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/subject_iconBackground"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/border"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <TextView
-            android:id="@+id/CardTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/icon_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kotlin Multiplatform"
-            android:textColor="@color/headline"
-            android:textSize="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginHorizontal="10dp"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:backgroundTint="#26000000"
-        android:background="@drawable/home_icon_shape"
-        app:layout_constraintBottom_toBottomOf="parent" />
+            <TextView
+                android:id="@+id/subject_iconBackground"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/home_icon_shape"
+                android:backgroundTint="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/subject_iconLetter"
+                android:layout_width="26dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="K"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/subject_iconBackground"
+                app:layout_constraintStart_toStartOf="@+id/subject_iconBackground"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_cardTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/subject_CardTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="example"
+                android:textSize="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_goneMarginLeft="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_Select"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp">
+
+
+            <ImageButton
+                android:id="@+id/selectIcon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:backgroundTint="@color/description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

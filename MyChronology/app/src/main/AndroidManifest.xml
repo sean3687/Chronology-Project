@@ -18,7 +18,8 @@ package="com.tassiecomp.mychronology">
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        <nav-graph android:value="@navigation/daily_check" />
+        <nav-graph android:value="@navigation/daily_check_navgraph"/>
+
     </activity>
     <activity
         android:name=".ui.ManageSubjectActivity"
