@@ -2,34 +2,34 @@ package com.tassiecomp.mychronology.ui
 
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
-import android.widget.Toolbar
+import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.mychronology.R
+import com.tassiecomp.mychronology.adapters.DailyCheckTodoAdapter
+import com.tassiecomp.mychronology.models.SubjectItem
 import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.DailyCheckFragment
+import com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments.SelectSubjectPopupDialog
 import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
+import com.tassiecomp.mychronology.ui.viewModel.SubjectSelectViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_daily_check.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var MainViewModelHomeFragment: MainViewModel
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var navController: NavController
-    private lateinit var toolbar: Toolbar
+    lateinit var subjectSelectViewModel: SubjectSelectViewModel
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var DailyCheckTodoAdapter: DailyCheckTodoAdapter
     val currentDate = LocalDate.now()
 
 
@@ -39,22 +39,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        CalendarProgress()
+//        CalendarProgress()
         MainViewModelHomeFragment = ViewModelProvider(this).get(MainViewModel::class.java)
-
-        //Load DailyCheck Fragment
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.Main_NavHostFragment
-        ) as NavHostFragment
-        navController = navHostFragment.navController
-
-//
-//        GlobalScope.launch() {
-//            getSupportFragmentManager().beginTransaction()
-//                .replace(R.id.Main_NavHostFragment, DailyCheckFragment())
-//                .commit()
-//
-//        }
+        subjectSelectViewModel = ViewModelProvider(this).get(SubjectSelectViewModel::class.java)
 
         //top app bar
         topAppBar.setNavigationOnClickListener {
@@ -83,16 +70,70 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        //DailyCheck Fragment
+        supportFragmentManager.beginTransaction().add(R.id.calendarViewFrameLayout, DailyCheckFragment()).commit()
+
+        selectSubject_text.setOnClickListener {
+
+            val dialog = SelectSubjectPopupDialog()
+            val ft = supportFragmentManager.beginTransaction()
+            dialog.show(ft, "DialogFragment")
+
+        }
+        val stockString = "NoSubject"
+        val stockColor = "#c2c2c2"
+        selectSubject_text.text = stockString[0].toString()
+        selectSubject_background.backgroundTintList = ColorStateList.valueOf(
+            Color.parseColor(
+                stockColor
+        ))
+
+        subjectSelectViewModel.selectedSubject.observe(this, Observer{
+            Log.d("Lifecycle", "Lifecycler called")
+        })
+
+
+//            if(item != null){
+//                val default = SubjectItem(-1, "noSubject", "notAssigned", "0", 0, 0, "#c2c2c2", "${LocalDate.now()}")
+//                setSelectedSubject(default)
+//            }
+//
+//            setSelectedSubject(item)
+
+        setupTodoRecyclerView()
+
+        addTodoList.setOnClickListener {
+
+        }
+
 
     }
 
-    fun CalendarProgress() {
-        progress_circular.visibility = View.VISIBLE
-        progress_background.visibility = View.VISIBLE
-        Handler().postDelayed({
-            progress_circular.visibility = View.INVISIBLE
-            progress_background.visibility = View.INVISIBLE
-        }, 3000)
+//    fun CalendarProgress() {
+//        progress_circular.visibility = View.VISIBLE
+//        progress_background.visibility = View.VISIBLE
+//        Handler().postDelayed({
+//            progress_circular.visibility = View.INVISIBLE
+//            progress_background.visibility = View.INVISIBLE
+//        }, 3000)
+//
+//    }
+
+    private fun setSelectedSubject(subjectItem: SubjectItem){
+        selectSubject_text.text = subjectItem.title[0].toString()
+        selectSubject_background.backgroundTintList = ColorStateList.valueOf(
+            Color.parseColor(
+                subjectItem.color
+            )
+        )
+    }
+    fun setupTodoRecyclerView() {
+        DailyCheckTodoAdapter = DailyCheckTodoAdapter()
+        daily_check_recyclerView.apply {
+            adapter = DailyCheckTodoAdapter
+            layoutManager = LinearLayoutManager(context)
+
+        }
 
     }
 }

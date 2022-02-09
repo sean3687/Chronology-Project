@@ -1,15 +1,20 @@
 package com.tassiecomp.mychronology.ui.fragments.DailyCheckFragments
 
 import android.animation.ValueAnimator
+import android.app.ProgressDialog.show
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -25,6 +30,7 @@ import com.tassiecomp.mychronology.R
 import com.tassiecomp.mychronology.adapters.DailyCheckTodoAdapter
 import com.tassiecomp.mychronology.databinding.CalendarDayLayoutBinding
 import com.tassiecomp.mychronology.databinding.FragmentDailyCheckBinding
+import com.tassiecomp.mychronology.models.SubjectItem
 import com.tassiecomp.mychronology.ui.MainActivity
 import com.tassiecomp.mychronology.ui.viewModel.MainViewModel
 import kotlinx.android.synthetic.main.calendar_day_layout.*
@@ -32,6 +38,7 @@ import kotlinx.android.synthetic.main.fragment_daily_check.*
 import kotlinx.android.synthetic.main.fragment_daily_check.view.*
 import kotlinx.android.synthetic.main.fragment_manage_subject.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.android.synthetic.main.subject_selected_cardview.view.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -44,10 +51,8 @@ class DailyCheckFragment : Fragment() {
     private var selectedDate: LocalDate? = null
     val today = LocalDate.now()
     val titleSameYearFormatter = DateTimeFormatter.ofPattern("MMMM")
-//    val selectedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     private lateinit var MainViewModelHomeFragment: MainViewModel
     private lateinit var binding: FragmentDailyCheckBinding
-    lateinit var DailyCheckTodoAdapter: DailyCheckTodoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,17 +60,6 @@ class DailyCheckFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_daily_check, container, false)
-
-        view.apply {
-
-//          selectSubject_background.text =
-
-        }
-
-
-
-
-
 
 
         return view
@@ -80,7 +74,7 @@ class DailyCheckFragment : Fragment() {
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
         Log.d("TAGG", "current month: $currentMonth")
-        setupTodoRecyclerView()
+//
 
         class MonthViewContainer(view: View) : ViewContainer(view) {
         }
@@ -248,23 +242,20 @@ class DailyCheckFragment : Fragment() {
         }
 
 
-        selectSubject_text.setOnClickListener {
-           showSubjectDialog()
 
-        }
 
     }
 
 
 
 
-    fun setupTodoRecyclerView() {
-        DailyCheckTodoAdapter = DailyCheckTodoAdapter()
-        daily_check_recyclerView.apply {
-            adapter = DailyCheckTodoAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-    }
+//    fun setupTodoRecyclerView() {
+//        DailyCheckTodoAdapter = DailyCheckTodoAdapter()
+//        daily_check_recyclerView.apply {
+//            adapter = DailyCheckTodoAdapter
+//            layoutManager = LinearLayoutManager(requireContext())
+//        }
+//    }
 
 
     private fun selectDate(date: LocalDate) {
@@ -276,10 +267,10 @@ class DailyCheckFragment : Fragment() {
     }
 
     private fun updateAdapterForDate(createdDate: String) {
-        MainViewModelHomeFragment.selectedDateData(createdDate)
-            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                (daily_check_recyclerView.adapter as DailyCheckTodoAdapter).submitList(it)
-            })
+//        MainViewModelHomeFragment.selectedDateData(createdDate)
+//            .observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+//                (daily_check_recyclerView.adapter as DailyCheckTodoAdapter).submitList(it)
+//            })
 
     }
 
@@ -292,29 +283,14 @@ class DailyCheckFragment : Fragment() {
 
     }
 
-    private fun showSubjectDialog(){
-        findNavController().navigate(
-            R.id.action_dailyCheckFragment_to_selectSubjectPopupDialog)
 
 
-    }
 
-    fun updateDailyCheckSubject(){
-//        Log.d("LOGG", "method from daily check fragment called")
-//        selectSubject_text.text = args.selectSubject.title[0].toString()
-//        selectSubject_background.backgroundTintList = ColorStateList.valueOf(
-//            Color.parseColor(
-//            args.selectSubject.color
-//        ))
-
-    }
-
-    fun dismissSubjectDialog(){
-        val myDialog = SelectSubjectPopupDialog()
-
-    }
 
 }
+
+
+
 
 
 

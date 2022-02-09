@@ -2,15 +2,17 @@ package com.tassiecomp.mychronology.ui.viewModel
 
 import android.app.Application
 import android.text.TextUtils
+import android.util.Log
 
 import androidx.lifecycle.*
+import androidx.room.ColumnInfo
 import com.tassiecomp.mychronology.db.HomeGradeDB
 import com.tassiecomp.mychronology.models.DailyGrade
 import com.tassiecomp.mychronology.models.SubjectItem
 import com.tassiecomp.mychronology.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import java.time.LocalDate
 
 
 class MainViewModel(
@@ -21,7 +23,6 @@ class MainViewModel(
     val readAllData_daily: LiveData<List<DailyGrade>>
     val getSubjectTitleList: LiveData<List<String>>
     val getSubjectColorList: LiveData<List<String>>
-
     private var repository: MainRepository
 
     init {
